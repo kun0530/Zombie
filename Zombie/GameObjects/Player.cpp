@@ -34,6 +34,12 @@ void Player::Update(float dt)
 
 	float angle = Utils::Angle(look);
 	sprite.setRotation(angle);
+
+	// 상하좌우(WASD) 이동
+	sf::Vector2f playerPos = GetPosition();
+	playerPos.x += InputMgr::GetAxis(Axis::Horizontal) * speed * dt;
+	playerPos.y += InputMgr::GetAxis(Axis::Vertical) * speed * dt;
+	SetPosition(playerPos);
 }
 
 void Player::Draw(sf::RenderWindow& window)

@@ -6,7 +6,7 @@ class Player : public SpriteGo
 protected:
 	sf::Vector2f direction = { 0.f, 0.f };
 	sf::Vector2f look = { 1.f, 0.f };
-	float speed = 100.f;
+	float speed = 500.f;
 
 public:
 	Player(const std::string& name = "");
