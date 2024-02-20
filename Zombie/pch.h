@@ -1,6 +1,9 @@
 #pragma once
 
+#define _USE_MATH_DEFINES
+
 // C++
+#include <cmath>
 #include <cstdlib>
 #include <ctime>
 #include <iostream>

@@ -8,12 +8,8 @@ SpriteGo::SpriteGo(const std::string& name)
 
 void SpriteGo::SetTexture(const std::string& textureId)
 {
-	sprite.setTexture(ResourceMgr<sf::Texture>::Instance().Get(textureId));
-}
-
-void SpriteGo::SetTexture(const sf::Texture& texture)
-{
-	sprite.setTexture(texture);
+	this->textureId = textureId;
+	sprite.setTexture(RES_MGR_TEXTURE.Get(textureId));
 }
 
 void SpriteGo::SetPosition(const sf::Vector2f& pos)
@@ -70,6 +66,12 @@ void SpriteGo::SetFlipY(bool filp)
 
 	isFlipY = filp;
 	SetScale(scale);
+}
+
+void SpriteGo::Reset()
+{
+	// 씬이 다시 들어왔을 때, 텍스터가 없는 상황이 발생할 수 있으므로...
+	sprite.setTexture(RES_MGR_TEXTURE.Get(textureId));
 }
 
 void SpriteGo::Draw(sf::RenderWindow& window)

@@ -4,12 +4,12 @@ class SpriteGo : public GameObject
 {
 protected:
 	sf::Sprite sprite;
+	std::string textureId;
 
 public:
 	SpriteGo(const std::string& name = "");
 
 	void SetTexture(const std::string& textureId);
-	void SetTexture(const sf::Texture& texture);
 
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetOrigin(Origins preset) override;
@@ -18,6 +18,7 @@ public:
 	void SetFlipX(bool filp) override;
 	void SetFlipY(bool filp) override;
 
+	void Reset() override;
 	void Draw(sf::RenderWindow& window) override;
 
 };

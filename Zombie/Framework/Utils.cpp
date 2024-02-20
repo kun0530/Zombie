@@ -68,3 +68,50 @@ sf::Vector2f Utils::SetOrigin(sf::Shape& obj, Origins originPreset)
 {
 	return SetOrigin(obj, originPreset, obj.getLocalBounds());
 }
+
+float Utils::SqrtMagnitude(const sf::Vector2f& vec)
+{
+	return vec.x * vec.x + vec.y * vec.y;
+}
+
+float Utils::Magnitude(const sf::Vector2f& vec)
+{
+	return std::sqrt(vec.x * vec.x + vec.y * vec.y);
+}
+
+void Utils::Normalize(sf::Vector2f& vec)
+{
+	float mag = Magnitude(vec);
+	if (mag != 0.f)
+	{
+		vec /= mag;
+	}
+}
+
+sf::Vector2f Utils::GetNormal(const sf::Vector2f& vec)
+{
+	float mag = Magnitude(vec);
+	if (mag == 0.f)
+		return vec;
+	return vec / mag;
+}
+
+float Utils::Distance(const sf::Vector2f& p1, const sf::Vector2f& p2)
+{
+	return Magnitude(p2 - p1);
+}
+
+float Utils::RadianToDegree(float radian)
+{
+	return radian * (180.0 / M_PI);
+}
+
+float Utils::DegreeToRadian(float degree)
+{
+	return degree * (M_PI / 180.0);
+}
+
+float Utils::Angle(const sf::Vector2f& vec)
+{
+	return RadianToDegree(std::atan2f(vec.y, vec.x));
+}
