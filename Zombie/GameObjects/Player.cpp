@@ -25,6 +25,15 @@ void Player::Reset()
 void Player::Update(float dt)
 {
 	SpriteGo::Update(dt);
+
+	sf::Vector2f mousePos = InputMgr::GetMousePos();
+	sf::Vector2f mouseWorldPos = mousePos; // TO-DO: 나중에 구현!
+
+	look = mouseWorldPos - position;
+	Utils::Normalize(look);
+
+	float angle = Utils::Angle(look);
+	sprite.setRotation(angle);
 }
 
 void Player::Draw(sf::RenderWindow& window)
