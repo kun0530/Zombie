@@ -36,10 +36,13 @@ void Player::Update(float dt)
 	sprite.setRotation(angle);
 
 	// 상하좌우(WASD) 이동
-	sf::Vector2f playerPos = GetPosition();
-	playerPos.x += InputMgr::GetAxis(Axis::Horizontal) * speed * dt;
-	playerPos.y += InputMgr::GetAxis(Axis::Vertical) * speed * dt;
-	SetPosition(playerPos);
+	direction.x = InputMgr::GetAxis(Axis::Horizontal);
+	direction.y = InputMgr::GetAxis(Axis::Vertical);
+
+	if (Utils::Magnitude(direction) > 1.f)
+		Utils::Normalize(direction);
+
+	SetPosition(position + direction * speed * dt);
 }
 
 void Player::Draw(sf::RenderWindow& window)
