@@ -159,6 +159,7 @@
     <ClCompile Include="Scenes\SceneDev2.cpp" />
     <ClCompile Include="GameObjects\SpriteGo.cpp" />
     <ClCompile Include="GameObjects\TextGo.cpp" />
+    <ClCompile Include="GameObjects\TileMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Framework.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="Scenes\SceneDev2.h" />
     <ClInclude Include="GameObjects\SpriteGo.h" />
     <ClInclude Include="GameObjects\TextGo.h" />
+    <ClInclude Include="GameObjects\TileMap.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "SceneGame.h"
 #include "Player.h"
+#include "TileMap.h"
 
 SceneGame::SceneGame(SceneIds id) : Scene(id)
 {
@@ -8,6 +9,8 @@ SceneGame::SceneGame(SceneIds id) : Scene(id)
 
 void SceneGame::Init()
 {
+	AddGo(new TileMap("Background"));
+
 	player = new Player("Player");
 	AddGo(player);
 
