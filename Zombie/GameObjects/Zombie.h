@@ -17,12 +17,14 @@ public:
 protected:
 	Types type;
 
+	sf::Vector2f look = { 1.f, 0.f };
+
 	int maxHp;
 	float speed;
-
 	int hp;
 
 	Player* player;
+	
 
 	Zombie(const std::string& name = ""); // 외부에서 좀비를 생성 못하도록
 
