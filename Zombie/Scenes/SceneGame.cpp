@@ -26,12 +26,12 @@ void SceneGame::Enter()
 {
 	Scene::Enter();
 
-	sf::Vector2f centerPos = (sf::Vector2f)FRAMEWORK.GetWindowSize() * 0.5f;
-
 	// 테스트 코드
+	sf::Vector2f centerPos = (sf::Vector2f)FRAMEWORK.GetWindowSize() * 0.5f;
 	TileMap* tileMap = dynamic_cast<TileMap*>(FindGo("Background"));
 	tileMap->SetPosition(centerPos);
 	tileMap->SetOrigin(Origins::MC);
+	tileMap->SetScale({ 0.5f, 0.5f });
 
 	player->SetPosition({ 500.f, 500.f });
 }

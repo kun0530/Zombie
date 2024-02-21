@@ -40,7 +40,7 @@ void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size)
 			}
 
 			int quadIndex = i * count.x + j; // 2차원 인덱스를 1차원 인덱스로 변환
-			sf::Vector2f quadPos(position.x + size.x * j, position.y + size.y * i);
+			sf::Vector2f quadPos(size.x * j, size.y * i);
 
 			for (int k = 0; k < 4; k++)
 			{
@@ -70,40 +70,47 @@ void TileMap::SetOrigin(Origins preset)
 	sf::Vector2f newOrigin(va.getBounds().width, va.getBounds().height);
 	newOrigin.x *= ((int)originPreset % 3) * 0.5f;
 	newOrigin.y *= ((int)originPreset / 3) * 0.5f;
-	origin = newOrigin;
+	origin = newOrigin - origin;
 	
 	for (int i = 0; i < va.getVertexCount(); i++)
 	{
-		va[i].position -= newOrigin;
+		va[i].position -= origin;
 	}
 }
 
 void TileMap::SetOrigin(const sf::Vector2f& newOrigin)
 {
 	originPreset = Origins::Custom;
-	origin = newOrigin;
+	origin = newOrigin - origin;
 	for (int i = 0; i < va.getVertexCount(); i++)
 	{
-		va[i].position -= newOrigin;
+		va[i].position -= origin;
 	}
 }
 
 void TileMap::SetPosition(const sf::Vector2f& pos)
 {
-	sf::Vector2f delta = pos - position;
+	GameObject::SetPosition(pos);
+	transform.translate(position);
+
+	/*sf::Vector2f delta = pos - position;
 	for (int i = 0; i < va.getVertexCount(); i++)
 	{
 		va[i].position += delta;
 	}
-	position = pos;
+	position = pos;*/
 }
 
 void TileMap::Translate(const sf::Vector2f& delta)
 {
+	GameObject::Translate(delta);
+	transform.translate(position);
 }
 
 void TileMap::SetScale(const sf::Vector2f& scale)
 {
+	GameObject::SetScale(scale);
+	transform.scale(this->scale);
 }
 
 void TileMap::SetFlipX(bool flip)
@@ -139,5 +146,9 @@ void TileMap::Update(float dt)
 
 void TileMap::Draw(sf::RenderWindow& window)
 {
-	window.draw(va, texture);
+	sf::RenderStates state;
+	state.texture = texture;
+	state.transform = transform;
+
+	window.draw(va, state);
 }

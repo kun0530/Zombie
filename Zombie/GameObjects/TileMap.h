@@ -10,6 +10,8 @@ protected:
 	sf::Vector2i cellCount; // 셀의 가로줄, 세로줄 개수
 	sf::Vector2f cellSize; // 단위 셀의 가로, 세로 길이
 
+	sf::Transform transform;
+
 public:
 	TileMap(const std::string& name = "");
 
