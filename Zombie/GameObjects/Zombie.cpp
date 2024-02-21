@@ -54,13 +54,13 @@ void Zombie::Update(float dt)
 {
 	SpriteGo::Update(dt);
 
-	sf::Vector2f look = player->GetPosition() - position;
-	Utils::Normalize(look);
+	sf::Vector2f direction = player->GetPosition() - position;
+	Utils::Normalize(direction);
 
-	float angle = Utils::Angle(look);
-	sprite.setRotation(angle);
+	float angle = Utils::Angle(direction);
+	SetRotation(angle);
 
-	Translate(look * speed * dt);
+	Translate(direction * speed * dt);
 }
 
 void Zombie::Draw(sf::RenderWindow& window)
