@@ -12,6 +12,7 @@ public:
 	void SetTexture(const std::string& textureId);
 
 	void SetPosition(const sf::Vector2f& pos) override;
+	void Translate(const sf::Vector2f& delta) override;
 	void SetOrigin(Origins preset) override;
 	void SetOrigin(const sf::Vector2f& newOrigin) override;
 	void SetScale(const sf::Vector2f& scale) override;

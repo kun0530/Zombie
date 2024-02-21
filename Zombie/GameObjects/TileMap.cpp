@@ -61,13 +61,44 @@ void TileMap::SetSpriteSheetId(const std::string& id)
 
 void TileMap::SetOrigin(Origins preset)
 {
+	if (preset == Origins::Custom)
+	{
+		preset = Origins::TL;
+	}
+	originPreset = preset;
+
+	sf::Vector2f newOrigin(va.getBounds().width, va.getBounds().height);
+	newOrigin.x *= ((int)originPreset % 3) * 0.5f;
+	newOrigin.y *= ((int)originPreset / 3) * 0.5f;
+	origin = newOrigin;
+	
+	for (int i = 0; i < va.getVertexCount(); i++)
+	{
+		va[i].position -= newOrigin;
+	}
 }
 
 void TileMap::SetOrigin(const sf::Vector2f& newOrigin)
 {
+	originPreset = Origins::Custom;
+	origin = newOrigin;
+	for (int i = 0; i < va.getVertexCount(); i++)
+	{
+		va[i].position -= newOrigin;
+	}
 }
 
 void TileMap::SetPosition(const sf::Vector2f& pos)
+{
+	sf::Vector2f delta = pos - position;
+	for (int i = 0; i < va.getVertexCount(); i++)
+	{
+		va[i].position += delta;
+	}
+	position = pos;
+}
+
+void TileMap::Translate(const sf::Vector2f& delta)
 {
 }
 

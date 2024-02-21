@@ -42,7 +42,7 @@ void Player::Update(float dt)
 	if (Utils::Magnitude(direction) > 1.f)
 		Utils::Normalize(direction);
 
-	SetPosition(position + direction * speed * dt);
+	Translate(direction * speed * dt);
 }
 
 void Player::Draw(sf::RenderWindow& window)

@@ -31,6 +31,7 @@ public:
 
 	sf::Vector2f GetPosition() const { return position; }
 	virtual void SetPosition(const sf::Vector2f& pos) { position = pos; }
+	virtual void Translate(const sf::Vector2f& delta) { position += delta; };
 
 	sf::Vector2f GetScale() const { return scale; }
 	virtual void SetScale(const sf::Vector2f& scale);
