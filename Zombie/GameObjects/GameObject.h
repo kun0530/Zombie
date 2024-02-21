@@ -8,6 +8,7 @@ protected:
 	Origins originPreset = Origins::TL;
 	sf::Vector2f origin = { 0.f, 0.f };
 	sf::Vector2f position = { 0.f, 0.f };
+	float rotation = 0.f; // degree
 	sf::Vector2f scale = { 1.f, 1.f };
 
 	bool isFlipX = false;
@@ -32,6 +33,9 @@ public:
 	sf::Vector2f GetPosition() const { return position; }
 	virtual void SetPosition(const sf::Vector2f& pos) { position = pos; }
 	virtual void Translate(const sf::Vector2f& delta) { position += delta; };
+
+	float GetRotation() const { return rotation; }
+	virtual void SetRotation(float r) { rotation = r; }
 
 	sf::Vector2f GetScale() const { return scale; }
 	virtual void SetScale(const sf::Vector2f& scale);

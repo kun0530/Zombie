@@ -17,12 +17,14 @@ public:
 
 	void Set(const sf::Vector2i& count, const sf::Vector2f& size);
 	void SetSpriteSheetId(const std::string& id);
+	void UpdateTransform();
 
 	void SetOrigin(Origins preset) override;
 	void SetOrigin(const sf::Vector2f& newOrigin) override;
 
 	void SetPosition(const sf::Vector2f& pos) override;
 	void Translate(const sf::Vector2f& delta) override;
+	void SetRotation(const float r) override;
 
 	void SetScale(const sf::Vector2f& scale) override;
 

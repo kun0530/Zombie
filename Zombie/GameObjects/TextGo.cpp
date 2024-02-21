@@ -39,6 +39,18 @@ void TextGo::SetPosition(const sf::Vector2f& pos)
 	text.setPosition(position);
 }
 
+void TextGo::Translate(const sf::Vector2f& delta)
+{
+	position += delta;
+	SetPosition(position);
+}
+
+void TextGo::SetRotation(float r)
+{
+	rotation = r;
+	text.setRotation(r);
+}
+
 void TextGo::SetOrigin(Origins preset)
 {
 	if (preset == Origins::Custom)

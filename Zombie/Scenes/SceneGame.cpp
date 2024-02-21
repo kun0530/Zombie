@@ -31,9 +31,10 @@ void SceneGame::Enter()
 	TileMap* tileMap = dynamic_cast<TileMap*>(FindGo("Background"));
 	tileMap->SetPosition(centerPos);
 	tileMap->SetOrigin(Origins::MC);
-	tileMap->SetScale({ 0.5f, 0.5f });
+	tileMap->SetScale({ 2.f, 2.f });
+	tileMap->SetRotation(45);
 
-	player->SetPosition({ 500.f, 500.f });
+	player->SetPosition(centerPos);
 }
 
 void SceneGame::Exit()

@@ -16,6 +16,8 @@ public:
 	void SetFont(const sf::Font& texture);
 
 	void SetPosition(const sf::Vector2f& pos) override;
+	void Translate(const sf::Vector2f& delta) override;
+	void SetRotation(float r) override;
 	void SetOrigin(Origins preset) override;
 	void SetOrigin(const sf::Vector2f& newOrigin) override;
 	void SetScale(const sf::Vector2f& scale) override;
