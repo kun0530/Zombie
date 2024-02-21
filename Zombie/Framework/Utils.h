@@ -20,7 +20,7 @@ public:
 	static sf::Vector2f SetOrigin(sf::Shape& obj, Origins originPreset);
 
 	// Math
-	static float SqrtMagnitude(const sf::Vector2f& vec); // 길이의 제곱
+	static float SqrMagnitude(const sf::Vector2f& vec); // 길이의 제곱
 	static float Magnitude(const sf::Vector2f& vec); // 벡터의 길이
 	static void Normalize(sf::Vector2f& vec); // 단위 벡터로 변환
 	static sf::Vector2f GetNormal(const sf::Vector2f& vec); // 단위 벡터를 반환

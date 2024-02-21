@@ -65,6 +65,19 @@ void SceneGame::Update(float dt)
 
 		AddGo(zombie);
 	}
+
+	for (auto it = gameObjects.begin(); it != gameObjects.end(); )
+	{
+		if (!(*it)->GetActive() && (*it)->name == "Zombie")
+		{
+			delete *it;
+			it = gameObjects.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
 }
 
 void SceneGame::Draw(sf::RenderWindow& window)

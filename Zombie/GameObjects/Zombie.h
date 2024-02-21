@@ -24,7 +24,7 @@ protected:
 	int hp;
 
 	Player* player;
-	
+
 
 	Zombie(const std::string& name = ""); // 외부에서 좀비를 생성 못하도록
 

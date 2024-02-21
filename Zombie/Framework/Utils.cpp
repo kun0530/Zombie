@@ -69,7 +69,7 @@ sf::Vector2f Utils::SetOrigin(sf::Shape& obj, Origins originPreset)
 	return SetOrigin(obj, originPreset, obj.getLocalBounds());
 }
 
-float Utils::SqrtMagnitude(const sf::Vector2f& vec)
+float Utils::SqrMagnitude(const sf::Vector2f& vec)
 {
 	return vec.x * vec.x + vec.y * vec.y;
 }

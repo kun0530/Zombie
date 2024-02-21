@@ -3,7 +3,7 @@
 
 Zombie* Zombie::Create(Types zombieType)
 {
-	Zombie* zombie = new Zombie();
+	Zombie* zombie = new Zombie("Zombie");
 	zombie->type = zombieType;
 
 	switch (zombieType)
@@ -55,12 +55,18 @@ void Zombie::Update(float dt)
 	SpriteGo::Update(dt);
 
 	sf::Vector2f direction = player->GetPosition() - position;
+	float distance = Utils::Magnitude(direction);
 	Utils::Normalize(direction);
 
 	float angle = Utils::Angle(direction);
 	SetRotation(angle);
 
 	Translate(direction * speed * dt);
+
+	if (distance < 50.f) // ¼÷Á¦
+	{
+		SetActive(false);
+	}
 }
 
 void Zombie::Draw(sf::RenderWindow& window)
