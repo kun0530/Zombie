@@ -26,15 +26,21 @@ void SceneGame::Enter()
 {
 	Scene::Enter();
 
-	// 테스트 코드
-	sf::Vector2f centerPos = (sf::Vector2f)FRAMEWORK.GetWindowSize() * 0.5f;
-	TileMap* tileMap = dynamic_cast<TileMap*>(FindGo("Background"));
-	tileMap->SetPosition(centerPos);
-	tileMap->SetOrigin(Origins::MC);
-	tileMap->SetScale({ 2.f, 2.f });
-	tileMap->SetRotation(45);
+	sf::Vector2f windowSize = (sf::Vector2f)FRAMEWORK.GetWindowSize();
+	sf::Vector2f centerPos = windowSize * 0.5f;
+	worldView.setSize(windowSize);
+	worldView.setCenter({ 0.f, 0.f });
+	uiView.setSize(windowSize);
+	uiView.setCenter(centerPos);
 
-	player->SetPosition(centerPos);
+	// 테스트 코드
+	TileMap* tileMap = dynamic_cast<TileMap*>(FindGo("Background"));
+	tileMap->SetPosition({ 0.f,0.f });
+	tileMap->SetOrigin(Origins::MC);
+	/*tileMap->SetScale({ 2.f, 2.f });
+	tileMap->SetRotation(45);*/
+
+	player->SetPosition({ 0.f,0.f });
 }
 
 void SceneGame::Exit()
@@ -45,6 +51,8 @@ void SceneGame::Exit()
 void SceneGame::Update(float dt)
 {
 	Scene::Update(dt);
+
+	worldView.setCenter(player->GetPosition());
 }
 
 void SceneGame::Draw(sf::RenderWindow& window)

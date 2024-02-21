@@ -27,8 +27,12 @@ protected:
 	ResourceMgr<sf::SoundBuffer>& soundResMgr;
 public:
 	Scene(SceneIds id);
-
 	virtual ~Scene() = default;
+
+	sf::Vector2f ScreenToWorld(sf::Vector2i screenPos);
+	sf::Vector2i WorldToScreen(sf::Vector2f worldPos);
+	sf::Vector2f ScreenToUi(sf::Vector2i screenPos);
+	sf::Vector2i UiToScreen(sf::Vector2f uiPos);
 
 	virtual void Init();
 	virtual void Release();

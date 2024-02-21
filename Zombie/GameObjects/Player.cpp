@@ -26,8 +26,8 @@ void Player::Update(float dt)
 {
 	SpriteGo::Update(dt);
 
-	sf::Vector2f mousePos = InputMgr::GetMousePos();
-	sf::Vector2f mouseWorldPos = mousePos; // TO-DO: 나중에 구현!
+	sf::Vector2i mousePos = (sf::Vector2i)InputMgr::GetMousePos();
+	sf::Vector2f mouseWorldPos = SCENE_MGR.GetCurrentScene()->ScreenToWorld(mousePos);
 
 	look = mouseWorldPos - position;
 	Utils::Normalize(look);

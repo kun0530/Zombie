@@ -9,6 +9,26 @@ Scene::Scene(SceneIds id) :
 {
 }
 
+sf::Vector2f Scene::ScreenToWorld(sf::Vector2i screenPos)
+{
+	return FRAMEWORK.GetWindow().mapPixelToCoords(screenPos, worldView);
+}
+
+sf::Vector2i Scene::WorldToScreen(sf::Vector2f worldPos)
+{
+	return FRAMEWORK.GetWindow().mapCoordsToPixel(worldPos, worldView);
+}
+
+sf::Vector2f Scene::ScreenToUi(sf::Vector2i screenPos)
+{
+	return FRAMEWORK.GetWindow().mapPixelToCoords(screenPos, uiView);
+}
+
+sf::Vector2i Scene::UiToScreen(sf::Vector2f uiPos)
+{
+	return FRAMEWORK.GetWindow().mapCoordsToPixel(uiPos, uiView);
+}
+
 void Scene::Init()
 {
 	for (auto obj : gameObjects)
@@ -72,6 +92,10 @@ void Scene::Update(float dt)
 
 void Scene::Draw(sf::RenderWindow& window)
 {
+	const sf::View& saveView = window.getView();
+
+	window.setView(worldView);
+
 	for (auto obj : gameObjects)
 	{
 		if (obj->GetActive())
@@ -80,6 +104,7 @@ void Scene::Draw(sf::RenderWindow& window)
 		}
 	}
 
+	window.setView(uiView);
 	for (auto obj : uiGameObjects)
 	{
 		if (obj->GetActive())
@@ -87,6 +112,8 @@ void Scene::Draw(sf::RenderWindow& window)
 			obj->Draw(window);
 		}
 	}
+
+	window.setView(saveView); // 처음 사용한 뷰를 다시 되돌린다.
 }
 
 GameObject* Scene::FindGo(const std::string& name, Layers layer)
