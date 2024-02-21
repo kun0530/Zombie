@@ -4,6 +4,7 @@
 Zombie* Zombie::Create(Types zombieType)
 {
 	Zombie* zombie = new Zombie();
+	zombie->type = zombieType;
 
 	switch (zombieType)
 	{
@@ -12,8 +13,8 @@ Zombie* Zombie::Create(Types zombieType)
 		zombie->maxHp = 40;
 		zombie->speed = 100;
 		break;
-	case Zombie::Types::Chase:
-		zombie->textureId = "graphics/chase.png";
+	case Zombie::Types::Chaser:
+		zombie->textureId = "graphics/chaser.png";
 		zombie->maxHp = 70;
 		zombie->speed = 75;
 		break;
@@ -24,7 +25,7 @@ Zombie* Zombie::Create(Types zombieType)
 		break;
 	}
 
-	return nullptr;
+	return zombie;
 }
 
 Zombie::Zombie(const std::string& name) : SpriteGo(name)
@@ -34,6 +35,8 @@ Zombie::Zombie(const std::string& name) : SpriteGo(name)
 void Zombie::Init()
 {
 	SpriteGo::Init();
+	SetTexture(textureId);
+	SetOrigin(Origins::MC);
 }
 
 void Zombie::Release()
@@ -44,6 +47,7 @@ void Zombie::Release()
 void Zombie::Reset()
 {
 	SpriteGo::Reset();
+	player = dynamic_cast<Player*>(SCENE_MGR.GetCurrentScene()->FindGo("Player"));
 }
 
 void Zombie::Update(float dt)

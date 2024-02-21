@@ -2,6 +2,7 @@
 #include "SceneGame.h"
 #include "Player.h"
 #include "TileMap.h"
+#include "Zombie.h"
 
 SceneGame::SceneGame(SceneIds id) : Scene(id)
 {
@@ -53,6 +54,17 @@ void SceneGame::Update(float dt)
 	Scene::Update(dt);
 
 	worldView.setCenter(player->GetPosition());
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Space))
+	{
+		Zombie::Types zombieType = (Zombie::Types)Utils::RandomRange(0, Zombie::TotalTypes);
+		Zombie* zombie = Zombie::Create(zombieType);
+		zombie->Init();
+		zombie->Reset();
+		zombie->SetPosition(Utils::RandomInUnitCircle() * 500.f);
+
+		AddGo(zombie);
+	}
 }
 
 void SceneGame::Draw(sf::RenderWindow& window)

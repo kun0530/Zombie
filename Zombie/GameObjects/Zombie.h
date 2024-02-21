@@ -8,7 +8,7 @@ public:
 	enum class Types
 	{
 		Bloater,
-		Chase,
+		Chaser,
 		Crawler
 	};
 	static const int TotalTypes = 3;
