@@ -25,6 +25,7 @@ protected:
 
 	Player* player;
 
+	sf::Vector2f direction;
 
 	Zombie(const std::string& name = ""); // 외부에서 좀비를 생성 못하도록
 

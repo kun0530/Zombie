@@ -88,6 +88,15 @@ void Scene::Update(float dt)
 			obj->Update(dt);
 		}
 	}
+
+	for (auto obj : removeGameObjects)
+	{
+		gameObjects.remove(obj);
+		uiGameObjects.remove(obj);
+
+		delete obj;
+	}
+	removeGameObjects.clear();
 }
 
 void Scene::Draw(sf::RenderWindow& window)
@@ -196,6 +205,6 @@ GameObject* Scene::AddGo(GameObject* obj, Layers layer)
 
 void Scene::RemoveGo(GameObject* obj)
 {
-	gameObjects.remove(obj);
-	uiGameObjects.remove(obj);
+	//obj->SetActive(false);
+	removeGameObjects.push_back(obj);
 }

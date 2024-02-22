@@ -54,7 +54,7 @@ void Zombie::Update(float dt)
 {
 	SpriteGo::Update(dt);
 
-	sf::Vector2f direction = player->GetPosition() - position;
+	direction = player->GetPosition() - position;
 	float distance = Utils::Magnitude(direction);
 	Utils::Normalize(direction);
 
@@ -65,7 +65,7 @@ void Zombie::Update(float dt)
 
 	if (distance < 50.f) // ¼÷Á¦
 	{
-		SetActive(false);
+		SCENE_MGR.GetCurrentScene()->RemoveGo(this);
 	}
 }
 
