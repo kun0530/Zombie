@@ -18,6 +18,32 @@ public:
 	GameObject(const std::string& name = "");
 	virtual ~GameObject();
 
+	static bool CompareDrawOrder(const GameObject& lhs, const GameObject& rhs)
+	{
+		if (lhs.sortLayer != rhs.sortLayer)
+		{
+			return lhs.sortLayer < rhs.sortLayer;
+		}
+		return lhs.sortOrder < rhs.sortOrder;
+	}
+	static bool CompareDrawOrder(const GameObject* lhs, const GameObject* rhs)
+	{
+		if (lhs->sortLayer != rhs->sortLayer)
+		{
+			return lhs->sortLayer < rhs->sortLayer;
+		}
+		return lhs->sortOrder < rhs->sortOrder;
+	}
+
+	bool operator<(const GameObject& rhs)
+	{
+		if (sortLayer != rhs.sortLayer)
+		{
+			return sortLayer < rhs.sortLayer;
+		}
+		return sortOrder < rhs.sortOrder;
+	}
+
 	bool GetActive() const { return active; }
 	virtual void SetActive(bool active) { this->active = active; }
 

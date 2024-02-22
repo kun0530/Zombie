@@ -101,6 +101,26 @@ void Scene::Update(float dt)
 
 void Scene::Draw(sf::RenderWindow& window)
 {
+	// gameObjects.sort();
+	//std::sort(gameObjects.begin(), gameObjects.end(),
+	//	[](GameObject* a, GameObject* b) {
+	//		// a + b
+	//		if (a->sortLayer != b->sortLayer)
+	//		{
+	//			return a->sortLayer < b->sortLayer;
+	//		}
+	//		return a->sortOrder < b->sortOrder;
+	//	});
+	//std::sort(uiGameObjects.begin(), uiGameObjects.end(),
+	//	[](GameObject* a, GameObject* b) {
+	//		// a + b
+	//		if (a->sortLayer != b->sortLayer)
+	//		{
+	//			return a->sortLayer < b->sortLayer;
+	//		}
+	//		return a->sortOrder < b->sortOrder;
+	//	});
+
 	const sf::View& saveView = window.getView();
 
 	window.setView(worldView);
@@ -187,6 +207,22 @@ GameObject* Scene::AddGo(GameObject* obj, Layers layer)
 	{
 		if (std::find(gameObjects.begin(), gameObjects.end(), obj) == gameObjects.end())
 		{
+			if (gameObjects.empty())
+			{
+				gameObjects.push_back(obj);
+				return obj;
+			}
+
+			auto it = gameObjects.begin();
+			while (it != gameObjects.end())
+			{
+				if (GameObject::CompareDrawOrder(obj, *it))
+				{
+					gameObjects.insert(it, obj);
+					return obj;
+				}
+				++it;
+			}
 			gameObjects.push_back(obj);
 			return obj;
 		}
@@ -196,6 +232,22 @@ GameObject* Scene::AddGo(GameObject* obj, Layers layer)
 	{
 		if (std::find(uiGameObjects.begin(), uiGameObjects.end(), obj) == uiGameObjects.end())
 		{
+			if (uiGameObjects.empty())
+			{
+				uiGameObjects.push_back(obj);
+				return obj;
+			}
+
+			auto it = uiGameObjects.begin();
+			while (it != uiGameObjects.end())
+			{
+				if (GameObject::CompareDrawOrder(obj, *it))
+				{
+					uiGameObjects.insert(it, obj);
+					return obj;
+				}
+				++it;
+			}
 			uiGameObjects.push_back(obj);
 			return obj;
 		}
