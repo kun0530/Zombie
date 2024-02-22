@@ -22,6 +22,12 @@ void Bullet::Translate(const sf::Vector2f& delta)
 	SetPosition(position);
 }
 
+sf::FloatRect& Bullet::GetBulletBounds()
+{
+	bulletBounds = bullet.getGlobalBounds();
+	return bulletBounds;
+}
+
 void Bullet::Init()
 {
 	GameObject::Init();

@@ -19,7 +19,7 @@ void SceneGame::Init()
 	spawners.push_back(new ZombieSpawner());
 	for (auto s : spawners)
 	{
-		s->SetPosition(Utils::RandomInUnitCircle() * 250.f);
+		s->SetPosition(sf::Vector2f(0.f, 0.f));
 		AddGo(s);
 	}
 
@@ -96,6 +96,20 @@ void SceneGame::Update(float dt)
 		else
 		{
 			++it;
+		}
+
+		
+		std::list<GameObject*> zombieList;
+		FindGoAll("Zombie", zombieList);
+		for (auto zombieGo : zombieList)
+		{
+			Zombie* zombie = dynamic_cast<Zombie*>(zombieGo);
+			if (bullet->GetBulletBounds().intersects(zombie->GetZombieBounds()))
+			{
+				zombie->SetTexture("graphics/blood.png");
+				zombie->SetIsDead(true);
+				bullet->SetActive(false);
+			}
 		}
 	}
 }

@@ -32,11 +32,18 @@ Zombie::Zombie(const std::string& name) : SpriteGo(name)
 {
 }
 
+sf::FloatRect& Zombie::GetZombieBounds()
+{
+	zombieBounds = sprite.getGlobalBounds();
+	return zombieBounds;
+}
+
 void Zombie::Init()
 {
 	SpriteGo::Init();
 	SetTexture(textureId);
 	SetOrigin(Origins::MC);
+	sortLayer = 2;
 }
 
 void Zombie::Release()
@@ -53,29 +60,24 @@ void Zombie::Reset()
 
 void Zombie::Update(float dt)
 {
-	//if (InputMgr::GetKeyDown(sf::Keyboard::Enter)) // 테스트 코드
-	//{
-	//	isDead = true;
-	//	SetTexture("graphics/blood.png");
-	//}
 	if (isDead)
-	{
 		return;
-	}
 
 	SpriteGo::Update(dt);
 
 	direction = player->GetPosition() - position;
 	float distance = Utils::Magnitude(direction);
-	Utils::Normalize(direction);
 
 	float angle = Utils::Angle(direction);
 	SetRotation(angle);
 
+	Utils::Normalize(direction);
 	Translate(direction * speed * dt);
 
 	// 빔~~~~
-	/*if (std::abs(Utils::Angle(player->GetLook()) - angle - 180) <= 30.f)
+	/*float playerAngle = Utils::Angle(-player->GetLook());
+	if (InputMgr::GetMouseButton(sf::Mouse::Left)
+		&& std::abs(playerAngle - angle) <= 10.f)
 	{
 		isDead = true;
 		SetTexture("graphics/blood.png");

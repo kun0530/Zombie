@@ -27,13 +27,15 @@ protected:
 	Player* player;
 
 	sf::Vector2f direction;
+	sf::FloatRect zombieBounds;
 
 	Zombie(const std::string& name = ""); // 외부에서 좀비를 생성 못하도록
 
 public:
 	~Zombie() override = default;
 
-	// void SetIsDead(const bool isDead) { this->isDead = isDead; }
+	void SetIsDead(const bool isDead) { this->isDead = isDead; }
+	sf::FloatRect& GetZombieBounds();
 
 	void Init() override;
 	void Release() override;
