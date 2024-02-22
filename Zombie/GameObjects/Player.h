@@ -8,9 +8,14 @@ protected:
 	sf::Vector2f look = { 1.f, 0.f };
 	float speed = 500.f;
 
+	sf::FloatRect mapBounds;
+
 public:
 	Player(const std::string& name = "");
 	~Player() override = default;
+
+	sf::Vector2f GetLook() const { return look; }
+	void SetMapBounds(const sf::FloatRect& mapBounds) { this->mapBounds = mapBounds; }
 
 	void Init() override;
 	void Release() override;

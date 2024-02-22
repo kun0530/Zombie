@@ -8,6 +8,8 @@ class Bullet;
 class SceneGame : public Scene
 {
 protected:
+	int wave = 1;
+
 	Player* player = nullptr;
 	std::vector<ZombieSpawner*> spawners;
 

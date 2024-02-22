@@ -12,6 +12,8 @@ protected:
 
 	sf::Transform transform;
 
+	sf::FloatRect mapBounds;
+
 public:
 	TileMap(const std::string& name = "");
 
@@ -25,6 +27,7 @@ public:
 	void SetPosition(const sf::Vector2f& pos) override;
 	void Translate(const sf::Vector2f& delta) override;
 	void SetRotation(const float r) override;
+	sf::FloatRect& GetMapBounds() { return mapBounds; }
 
 	void SetScale(const sf::Vector2f& scale) override;
 

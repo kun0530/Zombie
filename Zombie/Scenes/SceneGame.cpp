@@ -12,7 +12,8 @@ SceneGame::SceneGame(SceneIds id) : Scene(id)
 
 void SceneGame::Init()
 {
-	AddGo(new TileMap("Background"));
+	TileMap* tileMap = new TileMap("Background");
+	AddGo(tileMap);
 
 	spawners.push_back(new ZombieSpawner());
 	spawners.push_back(new ZombieSpawner());
@@ -37,6 +38,8 @@ void SceneGame::Enter()
 {
 	Scene::Enter();
 
+	wave = 1;
+
 	sf::Vector2f windowSize = (sf::Vector2f)FRAMEWORK.GetWindowSize();
 	sf::Vector2f centerPos = windowSize * 0.5f;
 	worldView.setSize(windowSize);
@@ -50,6 +53,8 @@ void SceneGame::Enter()
 	tileMap->SetOrigin(Origins::MC);
 	/*tileMap->SetScale({ 2.f, 2.f });
 	tileMap->SetRotation(45);*/
+
+	player->SetMapBounds(tileMap->GetMapBounds());
 
 	player->SetPosition({ 0.f,0.f });
 }

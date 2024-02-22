@@ -51,6 +51,10 @@ void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size)
 			}
 		}
 	}
+	float mapWidth = (cellCount.x - 2) * cellSize.x;
+	float mapHeight = (cellCount.y - 2) * cellSize.y;
+	mapBounds = { position - origin + sf::Vector2f(cellSize.x, cellSize.y),
+		{mapWidth, mapHeight} };
 }
 
 void TileMap::SetSpriteSheetId(const std::string& id)
@@ -68,6 +72,11 @@ void TileMap::UpdateTransform()
 	transform.scale(scaleX, scaleY, position.x, position.y);
 	transform.rotate(rotation, position.x, position.y);
 	transform.translate(position - origin);
+
+	float mapWidth = (cellCount.x - 2) * cellSize.x;
+	float mapHeight = (cellCount.y - 2) * cellSize.y;
+	mapBounds = { position - origin + sf::Vector2f(cellSize.x, cellSize.y),
+		{mapWidth, mapHeight}};
 }
 
 void TileMap::SetOrigin(Origins preset)
@@ -152,7 +161,6 @@ void TileMap::Init()
 	GameObject::Init();
 	SetSpriteSheetId("graphics/background_sheet.png");
 	Set({ 10, 10 }, { 50.f, 50.f });
-
 }
 
 void TileMap::Release()

@@ -33,7 +33,7 @@ protected:
 public:
 	~Zombie() override = default;
 
-	void IsDead(const bool isDead) { this->isDead = isDead; }
+	// void SetIsDead(const bool isDead) { this->isDead = isDead; }
 
 	void Init() override;
 	void Release() override;

@@ -42,7 +42,14 @@ void Player::Update(float dt)
 	if (Utils::Magnitude(direction) > 1.f)
 		Utils::Normalize(direction);
 
+	sf::Vector2f prevPos = position;
 	Translate(direction * speed * dt);
+
+	if (position.x < mapBounds.left || position.x > mapBounds.left + mapBounds.width
+		|| position.y < mapBounds.top || position.y > mapBounds.top + mapBounds.height)
+	{
+		SetPosition(prevPos);
+	}
 }
 
 void Player::Draw(sf::RenderWindow& window)
