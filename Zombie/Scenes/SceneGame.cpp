@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "TileMap.h"
 #include "Zombie.h"
+#include "ZombieSpawner.h"
 
 SceneGame::SceneGame(SceneIds id) : Scene(id)
 {
@@ -11,6 +12,14 @@ SceneGame::SceneGame(SceneIds id) : Scene(id)
 void SceneGame::Init()
 {
 	AddGo(new TileMap("Background"));
+
+	spawners.push_back(new ZombieSpawner());
+	spawners.push_back(new ZombieSpawner());
+	for (auto s : spawners)
+	{
+		s->SetPosition(Utils::RandomInUnitCircle() * 250.f);
+		AddGo(s);
+	}
 
 	player = new Player("Player");
 	AddGo(player);

@@ -63,10 +63,10 @@ void Zombie::Update(float dt)
 
 	Translate(direction * speed * dt);
 
-	if (distance < 50.f) // ¼÷Á¦
-	{
-		SCENE_MGR.GetCurrentScene()->RemoveGo(this);
-	}
+	//if (distance < 50.f) // ¼÷Á¦
+	//{
+	//	SCENE_MGR.GetCurrentScene()->RemoveGo(this);
+	//}
 }
 
 void Zombie::Draw(sf::RenderWindow& window)
