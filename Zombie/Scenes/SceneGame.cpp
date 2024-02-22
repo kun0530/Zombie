@@ -64,15 +64,12 @@ void SceneGame::Update(float dt)
 
 	worldView.setCenter(player->GetPosition());
 
+	// 테스트 코드
 	if (InputMgr::GetKeyDown(sf::Keyboard::Space))
 	{
-		Zombie::Types zombieType = (Zombie::Types)Utils::RandomRange(0, Zombie::TotalTypes);
-		Zombie* zombie = Zombie::Create(zombieType);
-		zombie->Init();
-		zombie->Reset();
-		zombie->SetPosition(Utils::RandomInUnitCircle() * 500.f);
-
-		AddGo(zombie);
+		TileMap* tileMap = dynamic_cast<TileMap*>(FindGo("Background"));
+		tileMap->sortLayer = 2;
+		ResortGo(tileMap);
 	}
 }
 

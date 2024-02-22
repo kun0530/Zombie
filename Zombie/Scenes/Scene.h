@@ -20,6 +20,7 @@ protected:
 	std::list<GameObject*> uiGameObjects;
 
 	std::list<GameObject*> removeGameObjects;
+	std::list<GameObject*> resortingGameObjects;
 
 	sf::View worldView;
 	sf::View uiView;
@@ -51,6 +52,7 @@ public:
 
 	virtual GameObject* AddGo(GameObject* obj, Layers layer = Layers::World);
 	virtual void RemoveGo(GameObject* obj);
+	virtual void ResortGo(GameObject* obj);
 
 	Scene(const Scene&) = delete;
 	Scene(Scene&&) = delete;
