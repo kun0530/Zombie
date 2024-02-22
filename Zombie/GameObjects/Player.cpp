@@ -10,7 +10,7 @@ void Player::Init()
 	SpriteGo::Init();
 	SetTexture("graphics/player.png");
 	SetOrigin(Origins::MC);
-	sortLayer = 2;
+	sortLayer = 3;
 }
 
 void Player::Release()

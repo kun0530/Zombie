@@ -36,6 +36,7 @@ void Bullet::Init()
 	// SetPosition({ 0.f, 0.f });
 	bullet.setFillColor(sf::Color::Yellow);
 	SetOrigin(Origins::MC);
+	sortLayer = 2;
 }
 
 void Bullet::Release()

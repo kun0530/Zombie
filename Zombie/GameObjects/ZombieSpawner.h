@@ -13,6 +13,8 @@ protected:
 
 	float timer = 0.f;
 
+	sf::FloatRect mapBounds;
+
 public:
 	ZombieSpawner(const std::string& name = "");
 	~ZombieSpawner() override = default;
@@ -21,5 +23,7 @@ public:
 	void Release() override;
 	void Reset() override;
 	void Update(float dt) override;
+
+	void SetMapBounds(const sf::FloatRect& bounds) { mapBounds = bounds; }
 };
 

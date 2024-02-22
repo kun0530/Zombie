@@ -15,6 +15,8 @@ protected:
 
 	std::list<Bullet*> useBulletList;
 	std::list<Bullet*> unuseBulletList;
+	float bulletTimer = 0.f;
+	float rateOfFire = 0.5f;
 
 public:
 	SceneGame(SceneIds id);

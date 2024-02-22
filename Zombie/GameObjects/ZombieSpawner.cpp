@@ -44,7 +44,8 @@ void ZombieSpawner::Update(float dt)
 
 		for (int i = 0; i < spawnCount; ++i)
 		{
-			sf::Vector2f pos = position + Utils::RandomInUnitCircle() * radius;
+			// sf::Vector2f pos = position + Utils::RandomInUnitCircle() * radius;
+			sf::Vector2f pos = Utils::RandomInBounds(mapBounds);
 			Zombie::Types zombieType = zombieTypes[Utils::RandomRange(0, zombieTypes.size())];
 			
 			Zombie* zombie = Zombie::Create(zombieType);

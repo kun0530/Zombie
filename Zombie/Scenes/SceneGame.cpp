@@ -55,8 +55,12 @@ void SceneGame::Enter()
 	tileMap->SetRotation(45);*/
 
 	player->SetMapBounds(tileMap->GetMapBounds());
-
 	player->SetPosition({ 0.f,0.f });
+
+	for (auto s : spawners)
+	{
+		s->SetMapBounds(tileMap->GetMapBounds());
+	}
 }
 
 void SceneGame::Exit()
@@ -78,8 +82,10 @@ void SceneGame::Update(float dt)
 		ResortGo(tileMap);
 	}*/
 
-	if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
+	bulletTimer += dt;
+	if (InputMgr::GetMouseButton(sf::Mouse::Left) && bulletTimer >= rateOfFire)
 	{
+		bulletTimer = 0.f;
 		FireBullet();
 	}
 
@@ -104,11 +110,18 @@ void SceneGame::Update(float dt)
 		for (auto zombieGo : zombieList)
 		{
 			Zombie* zombie = dynamic_cast<Zombie*>(zombieGo);
-			if (bullet->GetBulletBounds().intersects(zombie->GetZombieBounds()))
+			if (zombie->GetZombieBounds().intersects(bullet->GetBulletBounds()) && zombie->GetActive())
 			{
-				zombie->SetTexture("graphics/blood.png");
-				zombie->SetIsDead(true);
+				SpriteGo* blood = new SpriteGo("Blood");
+				blood->SetTexture("graphics/blood.png");
+				blood->SetPosition(zombie->GetPosition());
+				blood->sortLayer = 1;
+				AddGo(blood);
+
+				zombie->SetActive(false);
 				bullet->SetActive(false);
+				RemoveGo(zombie);
+				break;
 			}
 		}
 	}

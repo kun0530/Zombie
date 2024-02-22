@@ -35,6 +35,12 @@ sf::Vector2f Utils::RandomInUnitCircle()
 	return RandomOnUnitCircle() * RandomValue();
 }
 
+sf::Vector2f Utils::RandomInBounds(sf::FloatRect& bounds)
+{
+	return sf::Vector2f( RandomRange(bounds.left, bounds.left + bounds.width),
+		RandomRange(bounds.top, bounds.top + bounds.height));
+}
+
 int Utils::RandomRange(int min, int maxExclude)
 {
 	int range = maxExclude - min;
