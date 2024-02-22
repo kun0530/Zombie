@@ -19,6 +19,7 @@ protected:
 
 	sf::Vector2f look = { 1.f, 0.f };
 
+	bool isDead = false;
 	int maxHp;
 	float speed;
 	int hp;
@@ -31,6 +32,8 @@ protected:
 
 public:
 	~Zombie() override = default;
+
+	void IsDead(const bool isDead) { this->isDead = isDead; }
 
 	void Init() override;
 	void Release() override;

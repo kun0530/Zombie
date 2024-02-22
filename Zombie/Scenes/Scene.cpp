@@ -107,6 +107,7 @@ void Scene::Update(float dt)
 			continue;
 		}
 	}
+	resortingGameObjects.clear();
 
 	for (auto obj : removeGameObjects)
 	{

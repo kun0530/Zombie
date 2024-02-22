@@ -47,22 +47,31 @@ void Zombie::Release()
 void Zombie::Reset()
 {
 	SpriteGo::Reset();
+	isDead = false;
 	player = dynamic_cast<Player*>(SCENE_MGR.GetCurrentScene()->FindGo("Player"));
 }
 
 void Zombie::Update(float dt)
 {
-	SpriteGo::Update(dt);
+	if (InputMgr::GetKeyDown(sf::Keyboard::Enter)) // 테스트 코드
+	{
+		isDead = true;
+		SetTexture("graphics/blood.png");
+	}
 
-	direction = player->GetPosition() - position;
-	float distance = Utils::Magnitude(direction);
-	Utils::Normalize(direction);
+	if (!isDead)
+	{
+		SpriteGo::Update(dt);
 
-	float angle = Utils::Angle(direction);
-	SetRotation(angle);
+		direction = player->GetPosition() - position;
+		float distance = Utils::Magnitude(direction);
+		Utils::Normalize(direction);
 
-	Translate(direction * speed * dt);
+		float angle = Utils::Angle(direction);
+		SetRotation(angle);
 
+		Translate(direction * speed * dt);
+	}
 	//if (distance < 50.f) // 숙제
 	//{
 	//	SCENE_MGR.GetCurrentScene()->RemoveGo(this);

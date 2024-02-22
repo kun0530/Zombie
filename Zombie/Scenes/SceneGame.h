@@ -3,12 +3,16 @@
 
 class Player;
 class ZombieSpawner;
+class Bullet;
 
 class SceneGame : public Scene
 {
 protected:
 	Player* player = nullptr;
 	std::vector<ZombieSpawner*> spawners;
+
+	std::list<Bullet*> useBulletList;
+	std::list<Bullet*> unuseBulletList;
 
 public:
 	SceneGame(SceneIds id);
@@ -22,5 +26,7 @@ public:
 
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	void FireBullet();
 };
 
