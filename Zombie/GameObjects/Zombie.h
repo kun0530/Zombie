@@ -35,6 +35,7 @@ public:
 	~Zombie() override = default;
 
 	void SetIsDead(const bool isDead) { this->isDead = isDead; }
+	bool IsDead() { return isDead; }
 	sf::FloatRect& GetZombieBounds();
 
 	void Init() override;
