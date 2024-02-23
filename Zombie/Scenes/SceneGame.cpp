@@ -98,6 +98,7 @@ void SceneGame::Update(float dt)
 			gameObjects.remove(*it);
 			it = useBulletList.erase(it);
 			unuseBulletList.push_back(bullet);
+			continue;
 		}
 		else
 		{
@@ -110,17 +111,24 @@ void SceneGame::Update(float dt)
 		for (auto zombieGo : zombieList)
 		{
 			Zombie* zombie = dynamic_cast<Zombie*>(zombieGo);
-			if (zombie->GetZombieBounds().intersects(bullet->GetBulletBounds()) && zombie->GetActive())
+			if (zombie->GetZombieBounds().intersects(bullet->GetBulletBounds()) && !zombie->IsDead())
 			{
-				SpriteGo* blood = new SpriteGo("Blood");
+				/*SpriteGo* blood = new SpriteGo("Blood");
 				blood->SetTexture("graphics/blood.png");
 				blood->SetPosition(zombie->GetPosition());
 				blood->sortLayer = 1;
 				AddGo(blood);
 
-				zombie->SetActive(false);
+				zombie->SetActive(false);*/
+
+				// RemoveGo(zombie);
+
+				zombie->SetIsDead(true);
+				zombie->SetTexture("graphics/blood.png");
+				zombie->sortLayer = 1;
+				ResortGo(zombie);
+
 				bullet->SetActive(false);
-				RemoveGo(zombie);
 				break;
 			}
 		}
