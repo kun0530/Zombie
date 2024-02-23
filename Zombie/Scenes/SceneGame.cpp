@@ -9,9 +9,18 @@ SceneGame::SceneGame(SceneIds id) : Scene(id)
 {
 }
 
+sf::Vector2f SceneGame::ClampByTileMap(const sf::Vector2f point)
+{
+	sf::FloatRect rect = tileMap->GetGlobalBounds();
+	rect = Utils::ResizeRect(rect, tileMap->GetCellSize() * -2.f);
+
+	return Utils::Clamp(point, rect);
+}
+
 void SceneGame::Init()
 {
-	AddGo(new TileMap("Background"));
+	tileMap = new TileMap("Background");
+	AddGo(tileMap);
 
 	spawners.push_back(new ZombieSpawner());
 	spawners.push_back(new ZombieSpawner());
