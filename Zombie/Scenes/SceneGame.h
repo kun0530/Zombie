@@ -4,6 +4,7 @@
 class TileMap;
 class Player;
 class ZombieSpawner;
+class TextGo;
 
 class SceneGame : public Scene
 {
@@ -22,6 +23,8 @@ public:
 	bool IsInTileMap(const sf::Vector2f& point);
 	sf::Vector2f ClampByTileMap(const sf::Vector2f point);
 	const std::list<GameObject*>& GetZombieList() const { return zombieList; }
+
+	TextGo* playerHpText;
 
 	void Init() override;
 	void Release() override;

@@ -13,16 +13,22 @@ Zombie* Zombie::Create(Types zombieType)
 		zombie->textureId = "graphics/bloater.png";
 		zombie->maxHp = 40;
 		zombie->speed = 100;
+		zombie->damage = 100;
+		zombie->attackInterval = 1.f;
 		break;
 	case Zombie::Types::Chaser:
 		zombie->textureId = "graphics/chaser.png";
 		zombie->maxHp = 70;
 		zombie->speed = 75;
+		zombie->damage = 50;
+		zombie->attackInterval = 0.5f;
 		break;
 	case Zombie::Types::Crawler:
 		zombie->textureId = "graphics/crawler.png";
 		zombie->maxHp = 20;
 		zombie->speed = 50;
+		zombie->damage = 50;
+		zombie->attackInterval = 0.25f;
 		break;
 	}
 
@@ -49,8 +55,11 @@ void Zombie::Reset()
 {
 	SpriteGo::Reset();
 	hp = maxHp;
+	attackTimer = attackInterval;
+
 	player = dynamic_cast<Player*>(SCENE_MGR.GetCurrentScene()->FindGo("Player"));
 	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
+	
 	isAlive = true;
 }
 
@@ -74,6 +83,20 @@ void Zombie::Update(float dt)
 		pos = sceneGame->ClampByTileMap(pos);
 	}
 	SetPosition(pos);
+}
+
+void Zombie::FixedUpdate(float dt)
+{
+	attackTimer += dt;
+
+	if (attackTimer > attackInterval)
+	{
+		if (GetGlobalBounds().intersects(player->GetGlobalBounds()))
+		{
+			player->OnDamage(damage);
+			attackInterval = 0.f;
+		}
+	}
 }
 
 void Zombie::Draw(sf::RenderWindow& window)
@@ -102,5 +125,4 @@ void Zombie::OnDie()
 	isAlive = false;
 	SetActive(false);
 	sceneGame->RemoveGo(this);
-	// SetTexture("graphics/blood.png");
 }

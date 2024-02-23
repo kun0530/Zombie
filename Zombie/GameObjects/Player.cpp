@@ -26,12 +26,18 @@ void Player::Reset()
 {
 	SpriteGo::Reset();
 
+	hp = maxHp;
+	isAlive = true;
+
 	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
 }
 
 void Player::Update(float dt)
 {
 	SpriteGo::Update(dt);
+
+	if (!isAlive)
+		return;
 
 	sf::Vector2i mousePos = (sf::Vector2i)InputMgr::GetMousePos();
 	sf::Vector2f mouseWorldPos = SCENE_MGR.GetCurrentScene()->ScreenToWorld(mousePos);
@@ -71,11 +77,19 @@ void Player::Update(float dt)
 		Fire();
 		fireTimer = 0.f;
 	}
+
+	if (isNoDamage)
+	{
+		noDamageTimer += dt;
+		if (noDamageTimer > noDamageInterval)
+		{
+			isNoDamage = false;
+		}
+	}
 }
 
 void Player::FixedUpdate(float dt)
 {
-	std::cout << FRAMEWORK.GetTime() << std::endl;
 }
 
 void Player::Draw(sf::RenderWindow& window)
@@ -92,4 +106,30 @@ void Player::Fire()
 	bullet->SetPosition(position);
 	bullet->Fire(look, bulletSpeed, bulletDamage);
 	sceneGame->AddGo(bullet);
+}
+
+void Player::OnDamage(int damage)
+{
+	if (!isAlive || isNoDamage)
+		return;
+
+	hp -= damage;
+
+	isNoDamage = true;
+	noDamageTimer = 0.f;
+
+	if (hp <= 0)
+	{
+		hp = 0;
+		OnDie();
+	}
+}
+
+void Player::OnDie()
+{
+	if (!isAlive)
+		return;
+
+	isAlive = false;
+	SetTexture("graphics/blood.png");
 }

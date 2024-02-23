@@ -21,6 +21,10 @@ protected:
 
 	sf::Vector2f look = { 1.f, 0.f };
 
+	int damage;
+	float attackInterval;
+	float attackTimer = 0.f;
+
 	int maxHp;
 	float speed;
 	int hp;
@@ -40,8 +44,9 @@ public:
 	void Release() override;
 	void Reset() override;
 	void Update(float dt) override;
+	void FixedUpdate(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
-
+	
 	void OnDamage(int damage);
 	void OnDie();
 };

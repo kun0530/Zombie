@@ -4,6 +4,7 @@
 #include "TileMap.h"
 #include "Zombie.h"
 #include "ZombieSpawner.h"
+#include "TextGo.h"
 
 SceneGame::SceneGame(SceneIds id) : Scene(id)
 {
@@ -41,6 +42,13 @@ void SceneGame::Init()
 	player = new Player("Player");
 	AddGo(player);
 
+	// UI
+	playerHpText = new TextGo("HP Text");
+	playerHpText->Set(RES_MGR_FONT.Get("fonts/zombiecontrol.ttf"),
+		std::to_string(player->GetPlayerHP()),
+		75, sf::Color::White);
+	playerHpText->SetOrigin(Origins::TL);
+	AddGo(playerHpText, Layers::Ui);
 	Scene::Init();
 }
 
@@ -82,6 +90,8 @@ void SceneGame::Update(float dt)
 	Scene::Update(dt);
 
 	worldView.setCenter(player->GetPosition());
+
+	playerHpText->SetString(std::to_string(player->GetPlayerHP()));
 }
 
 void SceneGame::LateUpdate(float dt)
