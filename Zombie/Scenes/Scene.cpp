@@ -118,6 +118,14 @@ void Scene::Update(float dt)
 	removeGameObjects.clear();
 }
 
+void Scene::LateUpdate(float dt)
+{
+}
+
+void Scene::FixedUpdate(float dt)
+{
+}
+
 void Scene::Draw(sf::RenderWindow& window)
 {
 	// gameObjects.sort();

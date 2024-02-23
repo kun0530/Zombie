@@ -17,6 +17,7 @@ public:
 	SceneGame(SceneIds id);
 	~SceneGame() override = default;
 
+	bool IsInTileMap(const sf::Vector2f& point);
 	sf::Vector2f ClampByTileMap(const sf::Vector2f point);
 
 	void Init() override;

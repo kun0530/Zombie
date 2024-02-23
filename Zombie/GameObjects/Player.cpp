@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Player.h"
 #include "SceneGame.h"
+#include "Bullet.h"
 
 Player::Player(const std::string& name) : SpriteGo(name)
 {
@@ -11,6 +12,9 @@ void Player::Init()
 	SpriteGo::Init();
 	SetTexture("graphics/player.png");
 	SetOrigin(Origins::MC);
+
+	isFiring = false;
+	fireTimer = fireInterval;
 }
 
 void Player::Release()
@@ -51,9 +55,36 @@ void Player::Update(float dt)
 		pos = sceneGame->ClampByTileMap(pos);
 	}
 	SetPosition(pos);
+
+	if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
+	{
+		isFiring = true;
+	}
+	if (InputMgr::GetMouseButtonUp(sf::Mouse::Left))
+	{
+		isFiring = false;
+	}
+
+	fireTimer += dt;
+	if (isFiring && fireTimer > fireInterval)
+	{
+		Fire();
+		fireTimer = 0.f;
+	}
 }
 
 void Player::Draw(sf::RenderWindow& window)
 {
 	SpriteGo::Draw(window);
+}
+
+void Player::Fire()
+{
+	Bullet* bullet = new Bullet();
+	bullet->Init();
+	bullet->Reset();
+
+	bullet->SetPosition(position);
+	bullet->Fire(look, bulletSpeed);
+	sceneGame->AddGo(bullet);
 }

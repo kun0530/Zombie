@@ -9,6 +9,14 @@ SceneGame::SceneGame(SceneIds id) : Scene(id)
 {
 }
 
+bool SceneGame::IsInTileMap(const sf::Vector2f& point)
+{
+	sf::FloatRect rect = tileMap->GetGlobalBounds();
+	rect = Utils::ResizeRect(rect, tileMap->GetCellSize() * -2.f);
+
+	return rect.contains(point);
+}
+
 sf::Vector2f SceneGame::ClampByTileMap(const sf::Vector2f point)
 {
 	sf::FloatRect rect = tileMap->GetGlobalBounds();

@@ -12,6 +12,11 @@ protected:
 
 	SceneGame* sceneGame = nullptr;
 
+	bool isFiring = false;
+	float fireInterval = 0.5f;
+	float fireTimer = 0.f;
+	float bulletSpeed = 1000.f;
+
 public:
 	Player(const std::string& name = "");
 	~Player() override = default;
@@ -23,5 +28,7 @@ public:
 
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	void Fire();
 };
 
