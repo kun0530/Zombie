@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "Player.h"
-#include "TileMap.h"
 #include "SceneGame.h"
 
 Player::Player(const std::string& name) : SpriteGo(name)
@@ -23,7 +22,7 @@ void Player::Reset()
 {
 	SpriteGo::Reset();
 
-	tileMap = dynamic_cast<TileMap*>(SCENE_MGR.GetCurrentScene()->FindGo("Background"));
+	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
 }
 
 void Player::Update(float dt)
@@ -47,15 +46,10 @@ void Player::Update(float dt)
 		Utils::Normalize(direction);
 
 	sf::Vector2f pos = position + direction * speed * dt;
-
-	SceneGame* sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
-
 	if (sceneGame != nullptr)
 	{
 		pos = sceneGame->ClampByTileMap(pos);
-		pos = sceneGame->ClampByTileMap(pos);
 	}
-
 	SetPosition(pos);
 }
 

@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Zombie.h"
-#include "TileMap.h"
+#include "SceneGame.h"
 
 Zombie* Zombie::Create(Types zombieType)
 {
@@ -49,7 +49,7 @@ void Zombie::Reset()
 {
 	SpriteGo::Reset();
 	player = dynamic_cast<Player*>(SCENE_MGR.GetCurrentScene()->FindGo("Player"));
-	tileMap = dynamic_cast<TileMap*>(SCENE_MGR.GetCurrentScene()->FindGo("Background"));
+	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
 }
 
 void Zombie::Update(float dt)
@@ -64,24 +64,11 @@ void Zombie::Update(float dt)
 	SetRotation(angle);
 
 	sf::Vector2f pos = position + direction * speed * dt;
-	if (tileMap != nullptr)
+	if (sceneGame != nullptr)
 	{
-		sf::FloatRect tileMapBounds = tileMap->GetGlobalBounds();
-		const sf::Vector2f tileSize = tileMap->GetCellSize();
-		tileMapBounds.left += tileSize.x;
-		tileMapBounds.top += tileSize.y;
-		tileMapBounds.width -= tileSize.x * 2.f;
-		tileMapBounds.height -= tileSize.y * 2.f;
-
-		pos.x = Utils::Clamp(pos.x, tileMapBounds.left, tileMapBounds.left + tileMapBounds.width);
-		pos.y = Utils::Clamp(pos.y, tileMapBounds.top, tileMapBounds.top + tileMapBounds.height);
+		pos = sceneGame->ClampByTileMap(pos);
 	}
 	SetPosition(pos);
-
-	//if (distance < 50.f) // ¼÷Á¦
-	//{
-	//	SCENE_MGR.GetCurrentScene()->RemoveGo(this);
-	//}
 }
 
 void Zombie::Draw(sf::RenderWindow& window)

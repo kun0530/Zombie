@@ -2,7 +2,7 @@
 #include "SpriteGo.h"
 #include "Player.h"
 
-class TileMap;
+class SceneGame;
 
 class Zombie : public SpriteGo
 {
@@ -25,8 +25,8 @@ protected:
 	float speed;
 	int hp;
 
-	Player* player;
-	TileMap* tileMap;
+	Player* player = nullptr;
+	SceneGame* sceneGame = nullptr;
 
 	sf::Vector2f direction;
 

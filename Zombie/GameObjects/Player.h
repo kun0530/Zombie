@@ -1,7 +1,7 @@
 #pragma once
 #include "SpriteGo.h"
 
-class TileMap;
+class SceneGame;
 
 class Player : public SpriteGo
 {
@@ -10,7 +10,7 @@ protected:
 	sf::Vector2f look = { 1.f, 0.f };
 	float speed = 500.f;
 
-	TileMap* tileMap = nullptr;
+	SceneGame* sceneGame = nullptr;
 
 public:
 	Player(const std::string& name = "");

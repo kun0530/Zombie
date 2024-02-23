@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "Zombie.h"
 
+class SceneGame;
+
 class ZombieSpawner : public GameObject
 {
 protected:
@@ -12,6 +14,8 @@ protected:
 	float radius = 250.f;
 
 	float timer = 0.f;
+
+	SceneGame* sceneGame = nullptr;
 
 public:
 	ZombieSpawner(const std::string& name = "");
