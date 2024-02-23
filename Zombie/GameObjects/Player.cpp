@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Player.h"
+#include "TileMap.h"
 
 Player::Player(const std::string& name) : SpriteGo(name)
 {
@@ -20,6 +21,8 @@ void Player::Release()
 void Player::Reset()
 {
 	SpriteGo::Reset();
+
+	tileMap = dynamic_cast<TileMap*>(SCENE_MGR.GetCurrentScene()->FindGo("Background"));
 }
 
 void Player::Update(float dt)
@@ -42,7 +45,20 @@ void Player::Update(float dt)
 	if (Utils::Magnitude(direction) > 1.f)
 		Utils::Normalize(direction);
 
-	Translate(direction * speed * dt);
+	sf::Vector2f pos = position + direction * speed * dt;
+	/*if (tileMap != nullptr)
+	{
+		sf::FloatRect tileMapBounds = tileMap->GetGlobalBounds();
+		const sf::Vector2f tileSize = tileMap->GetCellSize();
+		tileMapBounds.left += tileSize.x;
+		tileMapBounds.top += tileSize.y;
+		tileMapBounds.width -= tileSize.x * 2.f;
+		tileMapBounds.height -= tileSize.y * 2.f;
+
+		pos.x = Utils::Clamp(pos.x, tileMapBounds.left, tileMapBounds.left + tileMapBounds.width);
+		pos.y = Utils::Clamp(pos.y, tileMapBounds.top, tileMapBounds.top + tileMapBounds.height);
+	}*/
+	SetPosition(pos);
 }
 
 void Player::Draw(sf::RenderWindow& window)

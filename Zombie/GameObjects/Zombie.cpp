@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Zombie.h"
+#include "TileMap.h"
 
 Zombie* Zombie::Create(Types zombieType)
 {
@@ -48,6 +49,7 @@ void Zombie::Reset()
 {
 	SpriteGo::Reset();
 	player = dynamic_cast<Player*>(SCENE_MGR.GetCurrentScene()->FindGo("Player"));
+	tileMap = dynamic_cast<TileMap*>(SCENE_MGR.GetCurrentScene()->FindGo("Background"));
 }
 
 void Zombie::Update(float dt)
@@ -61,7 +63,20 @@ void Zombie::Update(float dt)
 	float angle = Utils::Angle(direction);
 	SetRotation(angle);
 
-	Translate(direction * speed * dt);
+	sf::Vector2f pos = position + direction * speed * dt;
+	if (tileMap != nullptr)
+	{
+		sf::FloatRect tileMapBounds = tileMap->GetGlobalBounds();
+		const sf::Vector2f tileSize = tileMap->GetCellSize();
+		tileMapBounds.left += tileSize.x;
+		tileMapBounds.top += tileSize.y;
+		tileMapBounds.width -= tileSize.x * 2.f;
+		tileMapBounds.height -= tileSize.y * 2.f;
+
+		pos.x = Utils::Clamp(pos.x, tileMapBounds.left, tileMapBounds.left + tileMapBounds.width);
+		pos.y = Utils::Clamp(pos.y, tileMapBounds.top, tileMapBounds.top + tileMapBounds.height);
+	}
+	SetPosition(pos);
 
 	//if (distance < 50.f) // ¼÷Á¦
 	//{

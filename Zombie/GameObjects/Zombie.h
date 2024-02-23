@@ -2,6 +2,8 @@
 #include "SpriteGo.h"
 #include "Player.h"
 
+class TileMap;
+
 class Zombie : public SpriteGo
 {
 public:
@@ -24,6 +26,7 @@ protected:
 	int hp;
 
 	Player* player;
+	TileMap* tileMap;
 
 	sf::Vector2f direction;
 

@@ -63,14 +63,6 @@ void SceneGame::Update(float dt)
 	Scene::Update(dt);
 
 	worldView.setCenter(player->GetPosition());
-
-	// 테스트 코드
-	if (InputMgr::GetKeyDown(sf::Keyboard::Space))
-	{
-		TileMap* tileMap = dynamic_cast<TileMap*>(FindGo("Background"));
-		tileMap->sortLayer = 2;
-		ResortGo(tileMap);
-	}
 }
 
 void SceneGame::Draw(sf::RenderWindow& window)

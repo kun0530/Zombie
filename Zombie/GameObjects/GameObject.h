@@ -69,6 +69,9 @@ public:
 	bool GetFlipX() const { return isFlipX; }
 	virtual void SetFlipX(bool flip) {  isFlipX = flip ; }
 
+	virtual sf::FloatRect GetLocalBounds() { return sf::FloatRect(); }
+	virtual sf::FloatRect GetGlobalBounds() { return sf::FloatRect(position, { 0.f, 0.f }); }
+
 	bool GetFlipY() const { return isFlipY; }
 	virtual void SetFlipY(bool flip) { isFlipY = flip; }
 
