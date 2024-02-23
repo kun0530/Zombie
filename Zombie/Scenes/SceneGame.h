@@ -11,6 +11,8 @@ protected:
 	TileMap* tileMap = nullptr;
 	Player* player = nullptr;
 
+	std::list<GameObject*> zombieList;
+
 	std::vector<ZombieSpawner*> spawners;
 
 public:
@@ -19,6 +21,7 @@ public:
 
 	bool IsInTileMap(const sf::Vector2f& point);
 	sf::Vector2f ClampByTileMap(const sf::Vector2f point);
+	const std::list<GameObject*>& GetZombieList() const { return zombieList; }
 
 	void Init() override;
 	void Release() override;

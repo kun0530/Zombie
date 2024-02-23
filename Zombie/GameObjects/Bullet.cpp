@@ -46,8 +46,10 @@ void Bullet::Update(float dt)
 
 void Bullet::FixedUpdate(float dt)
 {
-	std::list<GameObject*> list;
-	sceneGame->FindGoAll("Zombie", list, Scene::Layers::World);
+	/*std::list<GameObject*> list;
+	sceneGame->FindGoAll("Zombie", list, Scene::Layers::World);*/
+
+	const std::list<GameObject*>& list = sceneGame->GetZombieList();
 	for (auto go : list)
 	{
 		if (!go->GetActive())

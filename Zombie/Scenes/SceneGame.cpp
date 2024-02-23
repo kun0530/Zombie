@@ -77,6 +77,8 @@ void SceneGame::Exit()
 
 void SceneGame::Update(float dt)
 {
+	FindGoAll("Zombie", zombieList, Layers::World);
+
 	Scene::Update(dt);
 
 	worldView.setCenter(player->GetPosition());
