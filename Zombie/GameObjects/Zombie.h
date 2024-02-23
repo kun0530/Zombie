@@ -29,6 +29,7 @@ protected:
 	SceneGame* sceneGame = nullptr;
 
 	sf::Vector2f direction;
+	bool isAlive = true;
 
 	Zombie(const std::string& name = ""); // 외부에서 좀비를 생성 못하도록
 
@@ -40,5 +41,8 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	void OnDamage(int damage);
+	void OnDie();
 };
 

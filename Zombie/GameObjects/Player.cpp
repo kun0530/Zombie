@@ -73,6 +73,11 @@ void Player::Update(float dt)
 	}
 }
 
+void Player::FixedUpdate(float dt)
+{
+	std::cout << FRAMEWORK.GetTime() << std::endl;
+}
+
 void Player::Draw(sf::RenderWindow& window)
 {
 	SpriteGo::Draw(window);
@@ -85,6 +90,6 @@ void Player::Fire()
 	bullet->Reset();
 
 	bullet->SetPosition(position);
-	bullet->Fire(look, bulletSpeed);
+	bullet->Fire(look, bulletSpeed, bulletDamage);
 	sceneGame->AddGo(bullet);
 }

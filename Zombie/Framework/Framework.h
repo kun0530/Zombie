@@ -15,6 +15,7 @@ protected:
 
 	sf::RenderWindow window;
 	sf::Vector2i windowSize;
+	float fixedUpdateTime = 1.f / 50.f;
 
 	sf::Clock clock;
 	float timeScale = 1.f;
@@ -25,6 +26,8 @@ protected:
 	sf::Time realDeltaTime;
 	sf::Time deltaTime;
 
+	sf::Time fixedDeltaTime;
+
 public:
 	sf::RenderWindow& GetWindow() { return window; }	// !!
 	const sf::Vector2i& GetWindowSize() const { return windowSize; }
@@ -33,7 +36,7 @@ public:
 	float GetTime() const { return time.asSeconds(); }
 	float GetRealDT() const { return realDeltaTime.asSeconds(); }
 	float GetDT() const { return deltaTime.asSeconds(); }
-	
+
 	float GetTimeScale() const { return timeScale; }
 	void SetTimeScale(float scale) { timeScale = scale; }
 

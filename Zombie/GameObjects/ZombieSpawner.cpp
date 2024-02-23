@@ -50,7 +50,7 @@ void ZombieSpawner::Update(float dt)
 		{
 			sf::Vector2f pos = position + Utils::RandomInUnitCircle() * radius;
 			Zombie::Types zombieType = zombieTypes[Utils::RandomRange(0, zombieTypes.size())];
-			
+
 			if (sceneGame != nullptr)
 			{
 				pos = sceneGame->ClampByTileMap(pos);

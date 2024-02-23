@@ -67,7 +67,7 @@ public:
 	virtual void SetScale(const sf::Vector2f& scale);
 
 	bool GetFlipX() const { return isFlipX; }
-	virtual void SetFlipX(bool flip) {  isFlipX = flip ; }
+	virtual void SetFlipX(bool flip) { isFlipX = flip; }
 
 	virtual sf::FloatRect GetLocalBounds() { return sf::FloatRect(); }
 	virtual sf::FloatRect GetGlobalBounds() { return sf::FloatRect(position, { 0.f, 0.f }); }
@@ -81,6 +81,8 @@ public:
 	virtual void Reset();
 
 	virtual void Update(float dt);
+	virtual void LateUpdate(float dt);
+	virtual void FixedUpdate(float dt);
 	virtual void Draw(sf::RenderWindow& window);
 
 	std::string name = "";

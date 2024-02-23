@@ -1,15 +1,17 @@
 #include "pch.h"
 #include "Bullet.h"
 #include "SceneGame.h"
+#include "Zombie.h"
 
 Bullet::Bullet(const std::string& name) : SpriteGo(name)
 {
 }
 
-void Bullet::Fire(const sf::Vector2f& dir, float s)
+void Bullet::Fire(const sf::Vector2f& dir, float s, int d)
 {
 	direction = dir;
 	speed = s;
+	damage = d;
 
 	SetRotation(Utils::Angle(direction));
 }
@@ -38,6 +40,29 @@ void Bullet::Update(float dt)
 		{
 			SetActive(false);
 			sceneGame->RemoveGo(this);
+		}
+	}
+}
+
+void Bullet::FixedUpdate(float dt)
+{
+	std::list<GameObject*> list;
+	sceneGame->FindGoAll("Zombie", list, Scene::Layers::World);
+	for (auto go : list)
+	{
+		if (!go->GetActive())
+			continue;
+
+		if (GetGlobalBounds().intersects(go->GetGlobalBounds()))
+		{
+			SetActive(false);
+			sceneGame->RemoveGo(this);
+
+			Zombie* zombie = dynamic_cast<Zombie*>(go);
+			if (zombie != nullptr)
+				zombie->OnDamage(10);
+
+			break;
 		}
 	}
 }

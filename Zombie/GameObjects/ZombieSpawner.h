@@ -9,7 +9,7 @@ class ZombieSpawner : public GameObject
 protected:
 	std::vector<Zombie::Types> zombieTypes;
 
-	float interval = 1.f;
+	float interval = 5.f;
 	int spawnCount = 1.f;
 	float radius = 250.f;
 

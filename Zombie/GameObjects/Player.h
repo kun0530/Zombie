@@ -16,6 +16,7 @@ protected:
 	float fireInterval = 0.5f;
 	float fireTimer = 0.f;
 	float bulletSpeed = 1000.f;
+	int bulletDamage = 10;
 
 public:
 	Player(const std::string& name = "");
@@ -27,6 +28,7 @@ public:
 	void Reset() override;
 
 	void Update(float dt) override;
+	void FixedUpdate(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
 	void Fire();

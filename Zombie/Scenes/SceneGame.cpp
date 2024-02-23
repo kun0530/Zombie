@@ -82,6 +82,16 @@ void SceneGame::Update(float dt)
 	worldView.setCenter(player->GetPosition());
 }
 
+void SceneGame::LateUpdate(float dt)
+{
+	Scene::LateUpdate(dt);
+}
+
+void SceneGame::FixedUpdate(float dt)
+{
+	Scene::FixedUpdate(dt);
+}
+
 void SceneGame::Draw(sf::RenderWindow& window)
 {
 	Scene::Draw(window);

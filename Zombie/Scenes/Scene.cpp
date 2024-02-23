@@ -88,6 +88,25 @@ void Scene::Update(float dt)
 			obj->Update(dt);
 		}
 	}
+}
+
+void Scene::LateUpdate(float dt)
+{
+	for (auto obj : gameObjects)
+	{
+		if (obj->GetActive())
+		{
+			obj->LateUpdate(dt);
+		}
+	}
+
+	for (auto obj : uiGameObjects)
+	{
+		if (obj->GetActive())
+		{
+			obj->LateUpdate(dt);
+		}
+	}
 
 	for (auto obj : resortingGameObjects)
 	{
@@ -118,12 +137,23 @@ void Scene::Update(float dt)
 	removeGameObjects.clear();
 }
 
-void Scene::LateUpdate(float dt)
-{
-}
-
 void Scene::FixedUpdate(float dt)
 {
+	for (auto obj : gameObjects)
+	{
+		if (obj->GetActive())
+		{
+			obj->FixedUpdate(dt);
+		}
+	}
+
+	for (auto obj : uiGameObjects)
+	{
+		if (obj->GetActive())
+		{
+			obj->FixedUpdate(dt);
+		}
+	}
 }
 
 void Scene::Draw(sf::RenderWindow& window)
@@ -285,10 +315,16 @@ GameObject* Scene::AddGo(GameObject* obj, Layers layer)
 void Scene::RemoveGo(GameObject* obj)
 {
 	//obj->SetActive(false);
-	removeGameObjects.push_back(obj);
+	if (std::find(removeGameObjects.begin(), removeGameObjects.end(), obj) == removeGameObjects.end())
+	{
+		removeGameObjects.push_back(obj);
+	}
 }
 
 void Scene::ResortGo(GameObject* obj)
 {
-	resortingGameObjects.push_back(obj);
+	if (std::find(resortingGameObjects.begin(), resortingGameObjects.end(), obj) == resortingGameObjects.end())
+	{
+		resortingGameObjects.push_back(obj);
+	}
 }

@@ -48,13 +48,18 @@ void Zombie::Release()
 void Zombie::Reset()
 {
 	SpriteGo::Reset();
+	hp = maxHp;
 	player = dynamic_cast<Player*>(SCENE_MGR.GetCurrentScene()->FindGo("Player"));
 	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
+	isAlive = true;
 }
 
 void Zombie::Update(float dt)
 {
 	SpriteGo::Update(dt);
+
+	if (!isAlive)
+		return;
 
 	direction = player->GetPosition() - position;
 	float distance = Utils::Magnitude(direction);
@@ -74,4 +79,28 @@ void Zombie::Update(float dt)
 void Zombie::Draw(sf::RenderWindow& window)
 {
 	SpriteGo::Draw(window);
+}
+
+void Zombie::OnDamage(int damage)
+{
+	if (!isAlive)
+		return;
+
+	hp -= damage;
+	if (hp <= 0)
+	{
+		hp = 0;
+		OnDie();
+	}
+}
+
+void Zombie::OnDie()
+{
+	if (!isAlive)
+		return;
+
+	isAlive = false;
+	SetActive(false);
+	sceneGame->RemoveGo(this);
+	// SetTexture("graphics/blood.png");
 }
