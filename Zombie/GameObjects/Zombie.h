@@ -3,6 +3,7 @@
 #include "Player.h"
 
 class SceneGame;
+class UiHud;
 
 class Zombie : public SpriteGo
 {
@@ -31,6 +32,7 @@ protected:
 
 	Player* player = nullptr;
 	SceneGame* sceneGame = nullptr;
+	UiHud* uiHud = nullptr;
 
 	sf::Vector2f direction;
 	bool isAlive = true;

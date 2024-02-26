@@ -3,18 +3,20 @@
 
 class TileMap;
 class Player;
-class ZombieSpawner;
-class TextGo;
+class Spawner;
+class UiHud;
 
 class SceneGame : public Scene
 {
 protected:
 	TileMap* tileMap = nullptr;
 	Player* player = nullptr;
+	UiHud* uiHud = nullptr;
 
 	std::list<GameObject*> zombieList;
+	std::vector<Spawner*> spawners;
 
-	std::vector<ZombieSpawner*> spawners;
+	int score = 0;
 
 public:
 	SceneGame(SceneIds id);
@@ -24,7 +26,13 @@ public:
 	sf::Vector2f ClampByTileMap(const sf::Vector2f point);
 	const std::list<GameObject*>& GetZombieList() const { return zombieList; }
 
-	TextGo* playerHpText;
+	UiHud* GetHud() const { return uiHud; }
+
+	int AddScore(int score)
+	{
+		this->score += score;
+		return this->score;
+	}
 
 	void Init() override;
 	void Release() override;

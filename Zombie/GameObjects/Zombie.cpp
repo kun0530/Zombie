@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Zombie.h"
 #include "SceneGame.h"
+#include "UiHud.h"
 
 Zombie* Zombie::Create(Types zombieType)
 {
@@ -59,7 +60,8 @@ void Zombie::Reset()
 
 	player = dynamic_cast<Player*>(SCENE_MGR.GetCurrentScene()->FindGo("Player"));
 	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
-	
+	uiHud = dynamic_cast<UiHud*>(SCENE_MGR.GetCurrentScene()->FindGo("UI HUD"));
+
 	isAlive = true;
 }
 
@@ -122,6 +124,7 @@ void Zombie::OnDie()
 	if (!isAlive)
 		return;
 
+	uiHud->SetScore(sceneGame->AddScore(10));
 	isAlive = false;
 	SetActive(false);
 	sceneGame->RemoveGo(this);

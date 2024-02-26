@@ -166,6 +166,7 @@
     <ClCompile Include="GameObjects\Zombie.cpp" />
     <ClCompile Include="GameObjects\ZombieSpawner.cpp" />
     <ClCompile Include="GameObjects\Spawner.cpp" />
+    <ClCompile Include="GameObjects\UiHud.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Bullet.h" />
@@ -191,6 +192,7 @@
     <ClInclude Include="GameObjects\Zombie.h" />
     <ClInclude Include="GameObjects\ZombieSpawner.h" />
     <ClInclude Include="GameObjects\Spawner.h" />
+    <ClInclude Include="GameObjects\UiHud.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

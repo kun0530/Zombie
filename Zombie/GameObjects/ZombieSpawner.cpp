@@ -25,7 +25,7 @@ void ZombieSpawner::Reset()
 	zombieTypes.push_back(Zombie::Types::Crawler);
 	zombieTypes.push_back(Zombie::Types::Crawler);
 
-	interval = 1.f;
+	interval = 5.f;
 	spawnCount = 1;
 	radius = 250.f;
 	timer = 0.f;

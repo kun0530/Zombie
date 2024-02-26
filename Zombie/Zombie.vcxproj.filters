@@ -78,6 +78,9 @@
     <ClCompile Include="GameObjects\ItemSpawner.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="GameObjects\UiHud.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Defines.h">
@@ -147,6 +150,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="GameObjects\ItemSpawner.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\UiHud.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

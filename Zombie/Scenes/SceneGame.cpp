@@ -6,6 +6,7 @@
 #include "ZombieSpawner.h"
 #include "ItemSpawner.h"
 #include "TextGo.h"
+#include "UiHud.h"
 
 SceneGame::SceneGame(SceneIds id) : Scene(id)
 {
@@ -29,31 +30,27 @@ sf::Vector2f SceneGame::ClampByTileMap(const sf::Vector2f point)
 
 void SceneGame::Init()
 {
+	// 배경
 	tileMap = new TileMap("Background");
 	AddGo(tileMap);
 
+	// 스포너
 	spawners.push_back(new ZombieSpawner());
-	spawners.push_back(new ZombieSpawner());
+	spawners.push_back(new ItemSpawner());
 	for (auto s : spawners)
 	{
 		s->SetPosition(Utils::RandomInUnitCircle() * 250.f);
 		AddGo(s);
 	}
-
-	// 테스트 코드
-	ItemSpawner* itemSpawner = new ItemSpawner("Item Spawner");
-	AddGo(itemSpawner);
-
+	
+	// 플레이어
 	player = new Player("Player");
 	AddGo(player);
+	
+	// HP, Ammo 확인용 테스트 UI
+	uiHud = new UiHud("UI HUD");
+	AddGo(uiHud, Layers::Ui);
 
-	// UI
-	playerHpText = new TextGo("HP Text");
-	playerHpText->Set(RES_MGR_FONT.Get("fonts/zombiecontrol.ttf"),
-		std::to_string(player->GetPlayerHP()),
-		75, sf::Color::White);
-	playerHpText->SetOrigin(Origins::TL);
-	AddGo(playerHpText, Layers::Ui);
 	Scene::Init();
 }
 
@@ -81,6 +78,14 @@ void SceneGame::Enter()
 	tileMap->SetRotation(45);*/
 
 	player->SetPosition({ 0.f,0.f });
+
+	// UI
+	uiHud->SetScore(score);
+	uiHud->SetHiScore(100);
+	// uiHud->SetAmmo(3, 8);
+	// uiHud->SetHp(player->GetPlayerHP(), player->GetPlayerMaxHP());
+	uiHud->SetWave(3);
+	uiHud->SetZombieCount(7);
 }
 
 void SceneGame::Exit()
@@ -95,8 +100,6 @@ void SceneGame::Update(float dt)
 	Scene::Update(dt);
 
 	worldView.setCenter(player->GetPosition());
-
-	playerHpText->SetString(std::to_string(player->GetPlayerHP()));
 }
 
 void SceneGame::LateUpdate(float dt)

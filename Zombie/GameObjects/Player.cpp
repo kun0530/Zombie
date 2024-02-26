@@ -3,6 +3,7 @@
 #include "SceneGame.h"
 #include "Bullet.h"
 #include "Item.h"
+#include "UiHud.h"
 
 Player::Player(const std::string& name) : SpriteGo(name)
 {
@@ -27,10 +28,14 @@ void Player::Reset()
 {
 	SpriteGo::Reset();
 
+	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
+	uiHud = dynamic_cast<UiHud*>(SCENE_MGR.GetCurrentScene()->FindGo("UI HUD"));
+
 	hp = maxHp;
 	isAlive = true;
 
-	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
+	uiHud->SetHp(hp, maxHp);
+	uiHud->SetAmmo(magazine, ammo);
 }
 
 void Player::Update(float dt)
@@ -71,12 +76,31 @@ void Player::Update(float dt)
 	{
 		isFiring = false;
 	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::R))
+	{
+		if (ammo < maxMagazine)
+		{
+			magazine += ammo;
+			if (magazine > maxMagazine)
+				magazine = maxMagazine;
+			ammo = 0;
+		}
+		else
+		{
+			magazine = maxMagazine;
+			ammo -= maxMagazine;
+		}
+		uiHud->SetAmmo(magazine, ammo);
+	}
 
 	fireTimer += dt;
-	if (isFiring && fireTimer > fireInterval && ammo > 0)
+	if (isFiring && fireTimer > fireInterval && magazine > 0)
 	{
 		Fire();
+		--magazine;
 		fireTimer = 0.f;
+
+		uiHud->SetAmmo(magazine, ammo);
 	}
 
 	if (isNoDamage)
@@ -124,6 +148,8 @@ void Player::OnDamage(int damage)
 		hp = 0;
 		OnDie();
 	}
+
+	uiHud->SetHp(hp, maxHp);
 }
 
 void Player::OnDie()
@@ -141,9 +167,15 @@ void Player::OnItem(Item* item)
 	{
 	case Item::Types::Ammo:
 		ammo += item->GetValue();
+		if (ammo > maxAmmo)
+			ammo = maxAmmo;
+		uiHud->SetAmmo(magazine, ammo);
 		break;
 	case Item::Types::Health:
 		hp += item->GetValue();
+		if (hp > maxHp)
+			hp = maxHp;
+		uiHud->SetHp(hp, maxHp);
 		break;
 	}
 }
