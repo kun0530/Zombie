@@ -5,6 +5,7 @@ class TileMap;
 class Player;
 class Spawner;
 class UiHud;
+class SpriteGo;
 
 class SceneGame : public Scene
 {
@@ -12,6 +13,7 @@ protected:
 	TileMap* tileMap = nullptr;
 	Player* player = nullptr;
 	UiHud* uiHud = nullptr;
+	SpriteGo* crosshair = nullptr;
 
 	std::list<GameObject*> zombieList;
 	std::vector<Spawner*> spawners;
@@ -28,11 +30,7 @@ public:
 
 	UiHud* GetHud() const { return uiHud; }
 
-	int AddScore(int score)
-	{
-		this->score += score;
-		return this->score;
-	}
+	int AddScore(const int score);
 
 	void Init() override;
 	void Release() override;

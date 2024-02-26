@@ -28,6 +28,12 @@ sf::Vector2f SceneGame::ClampByTileMap(const sf::Vector2f point)
 	return Utils::Clamp(point, rect);
 }
 
+int SceneGame::AddScore(const int score)
+{
+	this->score += score;
+	return this->score;
+}
+
 void SceneGame::Init()
 {
 	// 배경
@@ -46,8 +52,14 @@ void SceneGame::Init()
 	// 플레이어
 	player = new Player("Player");
 	AddGo(player);
+
+	crosshair = new SpriteGo("Crosshair");
+	crosshair->sortLayer = -1;
+	crosshair->SetTexture("graphics/crosshair.png");
+	crosshair->SetOrigin(Origins::MC);
+	AddGo(crosshair, Layers::Ui);
 	
-	// HP, Ammo 확인용 테스트 UI
+	// UI
 	uiHud = new UiHud("UI HUD");
 	AddGo(uiHud, Layers::Ui);
 
@@ -62,6 +74,8 @@ void SceneGame::Release()
 void SceneGame::Enter()
 {
 	Scene::Enter();
+
+	FRAMEWORK.GetWindow().setMouseCursorVisible(false);
 
 	sf::Vector2f windowSize = (sf::Vector2f)FRAMEWORK.GetWindowSize();
 	sf::Vector2f centerPos = windowSize * 0.5f;
@@ -91,6 +105,8 @@ void SceneGame::Enter()
 void SceneGame::Exit()
 {
 	Scene::Exit();
+
+	FRAMEWORK.GetWindow().setMouseCursorVisible(true);
 }
 
 void SceneGame::Update(float dt)
@@ -98,6 +114,8 @@ void SceneGame::Update(float dt)
 	FindGoAll("Zombie", zombieList, Layers::World);
 
 	Scene::Update(dt);
+
+	crosshair->SetPosition(ScreenToUi((sf::Vector2i)InputMgr::GetMousePos()));
 
 	worldView.setCenter(player->GetPosition());
 }
