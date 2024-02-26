@@ -2,23 +2,21 @@
 #include "ZombieSpawner.h"
 #include "SceneGame.h"
 
-ZombieSpawner::ZombieSpawner(const std::string& name) : GameObject(name)
+ZombieSpawner::ZombieSpawner(const std::string& name) : Spawner(name)
 {
 }
 
-void ZombieSpawner::Init()
-{
-	GameObject::Init();
-}
 
-void ZombieSpawner::Release()
+GameObject* ZombieSpawner::Create()
 {
-	GameObject::Release();
+	Zombie::Types zombieType = zombieTypes[Utils::RandomRange(0, zombieTypes.size())];
+
+	return Zombie::Create(zombieType);
 }
 
 void ZombieSpawner::Reset()
 {
-	GameObject::Reset();
+	Spawner::Reset();
 
 	zombieTypes.clear();
 	zombieTypes.push_back(Zombie::Types::Bloater);
@@ -35,33 +33,4 @@ void ZombieSpawner::Reset()
 
 	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
 
-}
-
-void ZombieSpawner::Update(float dt)
-{
-	GameObject::Update(dt);
-
-	timer += dt;
-	if (timer > interval)
-	{
-		timer = 0.f;
-
-		for (int i = 0; i < spawnCount; ++i)
-		{
-			sf::Vector2f pos = position + Utils::RandomInUnitCircle() * radius;
-			Zombie::Types zombieType = zombieTypes[Utils::RandomRange(0, zombieTypes.size())];
-
-			if (sceneGame != nullptr)
-			{
-				pos = sceneGame->ClampByTileMap(pos);
-			}
-
-			Zombie* zombie = Zombie::Create(zombieType);
-			zombie->Init();
-			zombie->Reset();
-			zombie->SetPosition(pos);
-
-			SCENE_MGR.GetCurrentScene()->AddGo(zombie);
-		}
-	}
 }
