@@ -38,6 +38,7 @@ void SceneGame::Init()
 {
 	// 배경
 	tileMap = new TileMap("Background");
+	tileMap->sortLayer = -1;
 	AddGo(tileMap);
 
 	// 스포너
@@ -51,6 +52,7 @@ void SceneGame::Init()
 	
 	// 플레이어
 	player = new Player("Player");
+	player->sortLayer = 1;
 	AddGo(player);
 
 	crosshair = new SpriteGo("Crosshair");
@@ -98,8 +100,8 @@ void SceneGame::Enter()
 	uiHud->SetHiScore(100);
 	// uiHud->SetAmmo(3, 8);
 	// uiHud->SetHp(player->GetPlayerHP(), player->GetPlayerMaxHP());
-	uiHud->SetWave(3);
-	uiHud->SetZombieCount(7);
+	uiHud->SetWave(wave);
+	uiHud->SetZombieCount(zombieNum);
 }
 
 void SceneGame::Exit()

@@ -167,6 +167,7 @@
     <ClCompile Include="GameObjects\ZombieSpawner.cpp" />
     <ClCompile Include="GameObjects\Spawner.cpp" />
     <ClCompile Include="GameObjects\UiHud.cpp" />
+    <ClCompile Include="GameObjects\SpriteGoEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Bullet.h" />
@@ -193,6 +194,7 @@
     <ClInclude Include="GameObjects\ZombieSpawner.h" />
     <ClInclude Include="GameObjects\Spawner.h" />
     <ClInclude Include="GameObjects\UiHud.h" />
+    <ClInclude Include="GameObjects\SpriteGoEffect.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -20,6 +20,7 @@ Item* Item::Create(Types t, int v)
 	default:
 		break;
 	}
+
 	return newItem;
 }
 

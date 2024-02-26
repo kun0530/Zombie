@@ -19,6 +19,8 @@ protected:
 	std::vector<Spawner*> spawners;
 
 	int score = 0;
+	int wave = 1;
+	int zombieNum = 3;
 
 public:
 	SceneGame(SceneIds id);

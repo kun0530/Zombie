@@ -2,6 +2,7 @@
 #include "Zombie.h"
 #include "SceneGame.h"
 #include "UiHud.h"
+#include "SpriteGoEffect.h"
 
 Zombie* Zombie::Create(Types zombieType)
 {
@@ -32,6 +33,7 @@ Zombie* Zombie::Create(Types zombieType)
 		zombie->attackInterval = 0.25f;
 		break;
 	}
+	zombie->sortLayer = 1;
 
 	return zombie;
 }
@@ -128,4 +130,15 @@ void Zombie::OnDie()
 	isAlive = false;
 	SetActive(false);
 	sceneGame->RemoveGo(this);
+
+	SpriteGoEffect* effectBlood = new SpriteGoEffect();
+	effectBlood->Init();
+	effectBlood->SetOrigin(Origins::MC);
+	effectBlood->SetTexture("graphics/blood.png");
+	effectBlood->Reset();
+	effectBlood->sortLayer = -1;
+	effectBlood->sortOrder = 1;
+	effectBlood->SetPosition(position);
+	effectBlood->SetRotation(Utils::RandomRange(0.f, 360.f));
+	sceneGame->AddGo(effectBlood);
 }
