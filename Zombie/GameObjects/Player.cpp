@@ -131,6 +131,8 @@ void Player::Fire()
 	bullet->SetPosition(position);
 	bullet->Fire(look, bulletSpeed, bulletDamage);
 	sceneGame->AddGo(bullet);
+
+	SOUND_MGR.PlaySfx("sound/shoot.wav");
 }
 
 void Player::OnDamage(int damage)

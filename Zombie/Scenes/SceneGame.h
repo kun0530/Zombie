@@ -33,6 +33,7 @@ public:
 	UiHud* GetHud() const { return uiHud; }
 
 	int AddScore(const int score);
+	int MinusZombieNum() { return --zombieNum; }
 
 	void Init() override;
 	void Release() override;
