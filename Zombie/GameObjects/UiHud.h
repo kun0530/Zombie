@@ -25,6 +25,8 @@ protected:
 	TextGo textWave;
 	TextGo textZombieCount;
 
+	TextGo textMessage;
+
 	sf::Vector2f gaugeHpSize = { 500.f, 100.f };
 
 public:
@@ -40,6 +42,9 @@ public:
 	void SetHp(int hp, int max);
 	void SetWave(int w);
 	void SetZombieCount(int count);
+
+	void SetMessage(const std::string& msg);
+	void SetMessageActive(bool active);
 
 	void Init() override;
 	void Release() override;

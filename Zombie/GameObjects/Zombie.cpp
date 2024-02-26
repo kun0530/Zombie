@@ -127,6 +127,7 @@ void Zombie::OnDie()
 		return;
 
 	uiHud->SetScore(sceneGame->AddScore(10));
+	uiHud->SetZombieCount(sceneGame->MinusZombieNum());
 	isAlive = false;
 	SetActive(false);
 	sceneGame->RemoveGo(this);

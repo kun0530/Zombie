@@ -9,7 +9,18 @@ class SpriteGo;
 
 class SceneGame : public Scene
 {
+public:
+	enum class Status
+	{
+		Game,
+		NextWave,
+		GameOver,
+		Pause
+	};
+
 protected:
+	Status currStatus = Status::Game;
+
 	TileMap* tileMap = nullptr;
 	Player* player = nullptr;
 	UiHud* uiHud = nullptr;
@@ -20,7 +31,7 @@ protected:
 
 	int score = 0;
 	int wave = 1;
-	int zombieNum = 3;
+	int zombieNum = 2;
 
 public:
 	SceneGame(SceneIds id);
@@ -44,6 +55,14 @@ public:
 	void Update(float dt) override;
 	void LateUpdate(float dt) override;
 	void FixedUpdate(float dt) override;
+
+	void UpdateGame(float dt);
+	void UpdateNextWave(float dt);
+	void UpdateGameOver(float dt);
+	void UpdatePause(float dt);
+
 	void Draw(sf::RenderWindow& window) override;
+
+	void SetStatus(Status newStatus);
 };
 

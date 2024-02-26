@@ -161,6 +161,7 @@ void Player::OnDie()
 
 	isAlive = false;
 	SetTexture("graphics/blood.png");
+	sceneGame->SetStatus(SceneGame::Status::GameOver);
 }
 
 void Player::OnItem(Item* item)

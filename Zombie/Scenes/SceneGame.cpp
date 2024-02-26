@@ -120,6 +120,22 @@ void SceneGame::Update(float dt)
 	crosshair->SetPosition(ScreenToUi((sf::Vector2i)InputMgr::GetMousePos()));
 
 	worldView.setCenter(player->GetPosition());
+
+	switch (currStatus)
+	{
+	case Status::Game:
+		UpdateGame(dt);
+		break;
+	case Status::NextWave:
+		UpdateNextWave(dt);
+		break;
+	case Status::GameOver:
+		UpdateGameOver(dt);
+		break;
+	case Status::Pause:
+		UpdatePause(dt);
+		break;
+	}
 }
 
 void SceneGame::LateUpdate(float dt)
@@ -132,7 +148,90 @@ void SceneGame::FixedUpdate(float dt)
 	Scene::FixedUpdate(dt);
 }
 
+void SceneGame::UpdateGame(float dt)
+{
+	if (zombieNum <= 0)
+	{
+		SetStatus(Status::NextWave);
+	}
+	
+	if (InputMgr::GetKeyDown(sf::Keyboard::Escape))
+	{
+		SetStatus(Status::Pause);
+	}
+
+	// 사운드 테스트
+	if (InputMgr::GetKeyDown(sf::Keyboard::Num1))
+	{
+		SOUND_MGR.PlayBgm("sound/mapleBgm1.mp3");
+	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Num2))
+	{
+		SOUND_MGR.PlayBgm("sound/mapleBgm2.mp3");
+	}
+}
+
+void SceneGame::UpdateNextWave(float dt)
+{
+	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
+	{
+		SetStatus(Status::Game);
+
+		++wave;
+		zombieNum = wave * 2;
+
+		player->SetPosition({ 0.f, 0.f });
+		tileMap->Set({ wave * 10, wave * 10 }, { 50.f, 50.f });
+		tileMap->SetOrigin(Origins::MC);
+
+		uiHud->SetWave(wave);
+		uiHud->SetZombieCount(zombieNum);
+	}
+}
+
+void SceneGame::UpdateGameOver(float dt)
+{
+}
+
+void SceneGame::UpdatePause(float dt)
+{
+	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
+	{
+		SetStatus(Status::Game);
+	}
+}
+
 void SceneGame::Draw(sf::RenderWindow& window)
 {
 	Scene::Draw(window);
+}
+
+void SceneGame::SetStatus(Status newStatus)
+{
+	Status prevStatus = currStatus;
+	currStatus = newStatus;
+
+	switch (currStatus)
+	{
+	case Status::Game:
+		uiHud->SetMessage("");
+		uiHud->SetMessageActive(false);
+		FRAMEWORK.SetTimeScale(1.f);
+		break;
+	case Status::NextWave:
+		uiHud->SetMessage("Next Wave!");
+		uiHud->SetMessageActive(true);
+		FRAMEWORK.SetTimeScale(0.f);
+		break;
+	case Status::GameOver:
+		uiHud->SetMessage("Game Over!");
+		uiHud->SetMessageActive(true);
+		FRAMEWORK.SetTimeScale(0.f);
+		break;
+	case Status::Pause:
+		uiHud->SetMessage("Pause!");
+		uiHud->SetMessageActive(true);
+		FRAMEWORK.SetTimeScale(0.f);
+		break;
+	}
 }

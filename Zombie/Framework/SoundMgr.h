@@ -12,7 +12,7 @@ private:
 	int frontBgmIndex = 0;
 
 	bool isFading = false;
-	float fadeDuration = 1.f;
+	float fadeDuration = 3.f;
 	float fadeTimer = 0.f;
 
 	std::list<sf::Sound*> playing;

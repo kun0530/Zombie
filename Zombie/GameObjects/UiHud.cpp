@@ -41,6 +41,20 @@ void UiHud::SetZombieCount(int count)
 	textZombieCount.SetString(formatZombieCount + std::to_string(count));
 }
 
+void UiHud::SetMessage(const std::string& msg)
+{
+	textMessage.SetString(msg);
+	textMessage.SetOrigin(Origins::MC);
+}
+
+void UiHud::SetMessageActive(bool active)
+{
+	if (active)
+		textMessage.SetActive(true);
+	else
+		textMessage.SetActive(false);
+}
+
 void UiHud::Init()
 {
 	textScore.Init();
@@ -49,6 +63,7 @@ void UiHud::Init()
 	textAmmo.Init();
 	textWave.Init();
 	textZombieCount.Init();
+	textMessage.Init();
 
 	sf::Font& font = RES_MGR_FONT.Get("fonts/zombiecontrol.ttf");
 
@@ -58,6 +73,8 @@ void UiHud::Init()
 	textAmmo.Set(font, "", textSize, sf::Color::White);
 	textWave.Set(font, "", textSize, sf::Color::White);
 	textZombieCount.Set(font, "", textSize, sf::Color::White);
+	textMessage.Set(font, "", textSize, sf::Color::White);
+	textMessage.SetActive(false);
 
 	imgAmmoIcon.SetTexture("graphics/ammo_icon.png");
 	gaugeHp.setFillColor(sf::Color::Red);
@@ -70,11 +87,14 @@ void UiHud::Init()
 	Utils::SetOrigin(gaugeHp, Origins::BL);
 	textWave.SetOrigin(Origins::BR);
 	textZombieCount.SetOrigin(Origins::BR);
+	textMessage.SetOrigin(Origins::MC);
 
 	// Top
 	float topY = 100.f;
 	textScore.SetPosition({ 150.f, topY });
 	textHiScore.SetPosition({ referenceResolution.x - 150.f, topY });
+
+	textMessage.SetPosition({ referenceResolution.x / 2.f, referenceResolution.y / 2.f });
 
 	// Bottom
 	float BottomY = referenceResolution.y - 100.f;
@@ -114,5 +134,6 @@ void UiHud::Draw(sf::RenderWindow& window)
 	textAmmo.Draw(window);
 	textWave.Draw(window);
 	textZombieCount.Draw(window);
+	textMessage.Draw(window);
 	window.draw(gaugeHp);
 }
