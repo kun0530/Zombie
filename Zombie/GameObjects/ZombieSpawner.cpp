@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "ZombieSpawner.h"
-#include "SceneGame.h"
 
 ZombieSpawner::ZombieSpawner(const std::string& name) : Spawner(name)
 {
@@ -30,7 +29,4 @@ void ZombieSpawner::Reset()
 	spawnCount = 1;
 	radius = 250.f;
 	timer = 0.f;
-
-	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
-
 }

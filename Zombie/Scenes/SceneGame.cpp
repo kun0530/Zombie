@@ -4,6 +4,7 @@
 #include "TileMap.h"
 #include "Zombie.h"
 #include "ZombieSpawner.h"
+#include "ItemSpawner.h"
 #include "TextGo.h"
 
 SceneGame::SceneGame(SceneIds id) : Scene(id)
@@ -38,6 +39,10 @@ void SceneGame::Init()
 		s->SetPosition(Utils::RandomInUnitCircle() * 250.f);
 		AddGo(s);
 	}
+
+	// 테스트 코드
+	ItemSpawner* itemSpawner = new ItemSpawner("Item Spawner");
+	AddGo(itemSpawner);
 
 	player = new Player("Player");
 	AddGo(player);

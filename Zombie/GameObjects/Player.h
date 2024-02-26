@@ -2,6 +2,7 @@
 #include "SpriteGo.h"
 
 class SceneGame;
+class Item;
 
 class Player : public SpriteGo
 {
@@ -12,6 +13,9 @@ protected:
 
 	int maxHp = 10000;
 	int hp;
+	int maxAmmo = 20;
+	int ammo = maxAmmo;
+
 	bool isAlive = true;
 	bool isNoDamage = false;
 	float noDamageTimer = 0.f;
@@ -38,8 +42,10 @@ public:
 	void FixedUpdate(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	void Fire();
+	void Fire ();
+
 	void OnDamage(int damage);
 	void OnDie();
+	void OnItem(Item* item);
 };
 

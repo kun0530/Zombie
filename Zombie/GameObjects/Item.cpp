@@ -43,6 +43,7 @@ void Item::FixedUpdate(float dt)
 
 	if (GetGlobalBounds().intersects(player->GetGlobalBounds()))
 	{
+		player->OnItem(this);
 		SetActive(false);
 		SCENE_MGR.GetCurrentScene()->RemoveGo(this);
 	}

@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "SceneGame.h"
 #include "Bullet.h"
+#include "Item.h"
 
 Player::Player(const std::string& name) : SpriteGo(name)
 {
@@ -72,7 +73,7 @@ void Player::Update(float dt)
 	}
 
 	fireTimer += dt;
-	if (isFiring && fireTimer > fireInterval)
+	if (isFiring && fireTimer > fireInterval && ammo > 0)
 	{
 		Fire();
 		fireTimer = 0.f;
@@ -132,4 +133,17 @@ void Player::OnDie()
 
 	isAlive = false;
 	SetTexture("graphics/blood.png");
+}
+
+void Player::OnItem(Item* item)
+{
+	switch (item->GetType())
+	{
+	case Item::Types::Ammo:
+		ammo += item->GetValue();
+		break;
+	case Item::Types::Health:
+		hp += item->GetValue();
+		break;
+	}
 }
