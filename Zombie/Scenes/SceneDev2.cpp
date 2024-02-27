@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "SceneDev2.h"
 #include "rapidcsv.h"
+#include "ZombieTable.h"
 
 SceneDev2::SceneDev2(SceneIds id) : Scene(id)
 {
@@ -23,16 +24,7 @@ void SceneDev2::Enter()
 {
 	Scene::Enter();
 
-	/*rapidcsv::Document doc("tables/colrowhdr.csv");
-
-	std::vector<float> col = doc.GetColumn<float>("Open");
-	std::cout << "Read " << col.size() << " values." << std::endl;
-
-	for (const auto& v : col)
-	{
-		std::cout << v << std::endl;
-	}*/
-	
+	std::cout << ZOMBIE_TABLE->Get(Zombie::Types::Bloater).nameId << std::endl;
 }
 
 void SceneDev2::Exit()
@@ -49,6 +41,7 @@ void SceneDev2::Update(float dt)
 		SceneMgr::Instance().ChangeScene(SceneIds::SceneDev1);
 	}
 
+	// 한국어 <-> 영어 테스트 코드
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num1))
 	{
 		std::cout << STRING_TABLE->Get("HI") << std::endl;

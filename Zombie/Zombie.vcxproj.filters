@@ -87,13 +87,16 @@
     <ClCompile Include="Framework\SoundMgr.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\DataTable.cpp">
+    <ClCompile Include="DataTables\DataTable.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\DataTableMgr.cpp">
+    <ClCompile Include="DataTables\DataTableMgr.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\StringTable.cpp">
+    <ClCompile Include="DataTables\StringTable.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="DataTables\ZombieTable.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -176,16 +179,19 @@
     <ClInclude Include="Framework\SoundMgr.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\rapidcsv.h">
+    <ClInclude Include="DataTables\rapidcsv.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\DataTable.h">
+    <ClInclude Include="DataTables\DataTable.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\DataTableMgr.h">
+    <ClInclude Include="DataTables\DataTableMgr.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\StringTable.h">
+    <ClInclude Include="DataTables\StringTable.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="DataTables\ZombieTable.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

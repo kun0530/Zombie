@@ -109,7 +109,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>.;.\SFML-2.6.1\include;.\Framework;.\GameObjects;.\Scenes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;.\SFML-2.6.1\include;.\Framework;.\GameObjects;.\Scenes;.\DataTables;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -137,8 +137,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Framework\DataTableMgr.cpp" />
-    <ClCompile Include="Framework\DataTable.cpp" />
+    <ClCompile Include="DataTables\DataTableMgr.cpp" />
+    <ClCompile Include="DataTables\DataTable.cpp" />
     <ClCompile Include="GameObjects\Bullet.cpp" />
     <ClCompile Include="Framework\Framework.cpp" />
     <ClCompile Include="Framework\InputMgr.cpp">
@@ -171,12 +171,13 @@
     <ClCompile Include="GameObjects\UiHud.cpp" />
     <ClCompile Include="GameObjects\SpriteGoEffect.cpp" />
     <ClCompile Include="Framework\SoundMgr.cpp" />
-    <ClCompile Include="Framework\StringTable.cpp" />
+    <ClCompile Include="DataTables\StringTable.cpp" />
+    <ClCompile Include="DataTables\ZombieTable.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Framework\DataTableMgr.h" />
-    <ClInclude Include="Framework\DataTable.h" />
-    <ClInclude Include="Framework\rapidcsv.h" />
+    <ClInclude Include="DataTables\DataTableMgr.h" />
+    <ClInclude Include="DataTables\DataTable.h" />
+    <ClInclude Include="DataTables\rapidcsv.h" />
     <ClInclude Include="GameObjects\Bullet.h" />
     <ClInclude Include="Framework\Framework.h" />
     <ClInclude Include="Framework\Defines.h" />
@@ -203,7 +204,8 @@
     <ClInclude Include="GameObjects\UiHud.h" />
     <ClInclude Include="GameObjects\SpriteGoEffect.h" />
     <ClInclude Include="Framework\SoundMgr.h" />
-    <ClInclude Include="Framework\StringTable.h" />
+    <ClInclude Include="DataTables\StringTable.h" />
+    <ClInclude Include="DataTables\ZombieTable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
