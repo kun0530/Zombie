@@ -32,9 +32,7 @@ void SceneDev2::Enter()
 	{
 		std::cout << v << std::endl;
 	}*/
-
-	StringTable* st = DT_MGR.Get<StringTable>(DataTable::Types::String);
-	std::cout << st->Get("HI") << std::endl;
+	
 }
 
 void SceneDev2::Exit()
@@ -49,5 +47,18 @@ void SceneDev2::Update(float dt)
 	if (InputMgr::GetKeyDown(sf::Keyboard::Space))
 	{
 		SceneMgr::Instance().ChangeScene(SceneIds::SceneDev1);
+	}
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Num1))
+	{
+		std::cout << STRING_TABLE->Get("HI") << std::endl;
+	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Num2))
+	{
+		STRING_TABLE->Load(Languages::Korean);
+	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Num3))
+	{
+		STRING_TABLE->Load(Languages::English);
 	}
 }

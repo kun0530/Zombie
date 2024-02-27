@@ -22,7 +22,20 @@ const std::string& StringTable::Get(const std::string& id)
 
 bool StringTable::Load()
 {
-	rapidcsv::Document doc("Tables/StringTable_KR.csv",
+	return Load(currLang);
+}
+
+bool StringTable::Load(Languages lang)
+{
+	static std::vector<std::string> filePathArray = {
+		"Tables/StringTable_KR.csv",
+		"Tables/StringTable_EN.csv"
+	};
+	currLang = lang;
+
+	table.clear();
+
+	rapidcsv::Document doc(filePathArray[(int)lang],
 		rapidcsv::LabelParams(0, -1));
 
 	// std::vector<std::string> keys = doc.GetColumn<std::string>(0);

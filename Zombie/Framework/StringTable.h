@@ -5,6 +5,7 @@ class StringTable : public DataTable
 {
 protected:
 	std::unordered_map<std::string, std::string> table;
+	Languages currLang = Languages::Korean;
 
 public:
 	StringTable(Types t);
@@ -13,6 +14,7 @@ public:
 	const std::string& Get(const std::string& id);
 
 	bool Load() override;
+	bool Load(Languages lang);
 	void Release() override;
 };
 
