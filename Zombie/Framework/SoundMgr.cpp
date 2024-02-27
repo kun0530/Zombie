@@ -55,45 +55,62 @@ void SoundMgr::Update(float dt)
 	// 크로스 페이드
 	if (isFading)
 	{
-		fadeTimer += dt;
-		float currBgmVolume = bgmVolume * fadeTimer / fadeDuration;
-		float prevBgmVolume = bgmVolume - currBgmVolume;
+		bool isEndBack = false;
+		bool isEndFront = false;
 
-		if (fadeTimer >= fadeDuration)
+		int backBgmIndex = (frontBgmIndex == 1) ? 0 : 1;
+		
+		float backVolume = bgm[backBgmIndex].getVolume();
+		backVolume = Utils::Lerp(backVolume, 0.f, dt * fadeSpeed);
+		bgm[backBgmIndex].setVolume(backVolume);
+		if (std::abs(backVolume) < fadeLimit)
 		{
-			currBgmVolume = bgmVolume;
-			prevBgmVolume = 0.f;
-			bgm[!frontBgmIndex].stop();
-
-			fadeTimer = 0.f;
-			isFading = false;
+			bgm[backBgmIndex].setVolume(0.f);
+			bgm[backBgmIndex].stop();
+			isEndBack = true;
 		}
 
-		bgm[frontBgmIndex].setVolume(currBgmVolume);
-		bgm[!frontBgmIndex].setVolume(prevBgmVolume);
+		float frontVolume = bgm[frontBgmIndex].getVolume();
+		frontVolume = Utils::Lerp(frontVolume, bgmVolume, dt * fadeSpeed);
+		bgm[frontBgmIndex].setVolume(frontVolume);
+		if (std::abs(backVolume - frontVolume) < fadeLimit)
+		{
+			bgm[frontBgmIndex].setVolume(bgmVolume);
+			isEndFront = true;
+		}
+
+		if (isEndBack && isEndFront)
+		{
+			isFading = false;
+		}
 	}
 }
 
 void SoundMgr::PlayBgm(std::string id, bool crossFade)
 {
+	frontBgmIndex = (frontBgmIndex + 1) % 2;
+	int backBgmIndex = (frontBgmIndex == 1) ? 0 : 1;
+
+	bgm[frontBgmIndex].setBuffer(RES_MGR_SOUND_BUFFER.Get(id));
+
 	if(crossFade)
 	{
 		isFading = true;
+		bgm[frontBgmIndex].setVolume(0.f);
 	}
 	else
 	{
 		StopBgm();
+		bgm[frontBgmIndex].setVolume(bgmVolume);
 	}
 
-	frontBgmIndex = (int)!frontBgmIndex;
-
-	bgm[frontBgmIndex].setBuffer(RES_MGR_SOUND_BUFFER.Get(id));
-	bgm[frontBgmIndex].setVolume(bgmVolume);
+	bgm[frontBgmIndex].setLoop(true);
 	bgm[frontBgmIndex].play();
 }
 
 void SoundMgr::StopBgm()
 {
+	isFading = false;
 	for (auto sound : bgm)
 	{
 		sound.stop();

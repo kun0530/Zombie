@@ -10,10 +10,11 @@ private:
 
 	sf::Sound bgm[2];
 	int frontBgmIndex = 0;
+	int backBgmIndex = 1;
 
 	bool isFading = false;
-	float fadeDuration = 3.f;
-	float fadeTimer = 0.f;
+	float fadeSpeed = 0.5f;
+	float fadeLimit = 0.05;
 
 	std::list<sf::Sound*> playing;
 	std::list<sf::Sound*> waiting;

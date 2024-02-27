@@ -42,13 +42,19 @@ void SceneGame::Init()
 	AddGo(tileMap);
 
 	// 스포너
-	spawners.push_back(new ZombieSpawner());
-	spawners.push_back(new ItemSpawner());
-	for (auto s : spawners)
+	zombieSpawner = new ZombieSpawner("Zombie Spawner");
+	zombieSpawner->SetPosition({ 0.f, 0.f });
+	zombieSpawner->SetActive(false);
+	AddGo(zombieSpawner);
+
+	itemSpawner = new ItemSpawner("Item Spawner");
+	itemSpawner->SetPosition({ 0.f, 0.f });
+	AddGo(itemSpawner);
+	/*for (auto s : spawners)
 	{
 		s->SetPosition(Utils::RandomInUnitCircle() * 250.f);
 		AddGo(s);
-	}
+	}*/
 	
 	// 플레이어
 	player = new Player("Player");
@@ -78,6 +84,8 @@ void SceneGame::Enter()
 	Scene::Enter();
 
 	FRAMEWORK.GetWindow().setMouseCursorVisible(false);
+	SetStatus(Status::Game);
+	wave = 1;
 
 	sf::Vector2f windowSize = (sf::Vector2f)FRAMEWORK.GetWindowSize();
 	sf::Vector2f centerPos = windowSize * 0.5f;
@@ -94,6 +102,9 @@ void SceneGame::Enter()
 	tileMap->SetRotation(45);*/
 
 	player->SetPosition({ 0.f,0.f });
+
+	zombieSpawner->SetActive(false);
+	zombieSpawner->Spawn(zombieNum);
 
 	// UI
 	uiHud->SetScore(score);
@@ -114,12 +125,15 @@ void SceneGame::Exit()
 void SceneGame::Update(float dt)
 {
 	FindGoAll("Zombie", zombieList, Layers::World);
+	FindGoAll("Item", itemList, Layers::World);
 
 	Scene::Update(dt);
 
 	crosshair->SetPosition(ScreenToUi((sf::Vector2i)InputMgr::GetMousePos()));
 
-	worldView.setCenter(player->GetPosition());
+	sf::Vector2f worldViewCenter = worldView.getCenter();
+	worldViewCenter = Utils::Lerp(worldViewCenter, player->GetPosition(), dt * 0.25f);
+	worldView.setCenter(worldViewCenter);
 
 	switch (currStatus)
 	{
@@ -153,11 +167,13 @@ void SceneGame::UpdateGame(float dt)
 	if (zombieNum <= 0)
 	{
 		SetStatus(Status::NextWave);
+		return;
 	}
 	
 	if (InputMgr::GetKeyDown(sf::Keyboard::Escape))
 	{
 		SetStatus(Status::Pause);
+		return;
 	}
 
 	// 사운드 테스트
@@ -165,7 +181,7 @@ void SceneGame::UpdateGame(float dt)
 	{
 		SOUND_MGR.PlayBgm("sound/mapleBgm1.mp3");
 	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::Num2))
+	else if (InputMgr::GetKeyDown(sf::Keyboard::Num2))
 	{
 		SOUND_MGR.PlayBgm("sound/mapleBgm2.mp3");
 	}
@@ -183,6 +199,16 @@ void SceneGame::UpdateNextWave(float dt)
 		player->SetPosition({ 0.f, 0.f });
 		tileMap->Set({ wave * 10, wave * 10 }, { 50.f, 50.f });
 		tileMap->SetOrigin(Origins::MC);
+
+		for (auto item : itemList)
+		{
+			RemoveGo(item);
+		}
+
+		itemSpawner->SetRadius(250.f * wave);
+		zombieSpawner->SetRadius(250.f * wave);
+
+		zombieSpawner->Spawn(zombieNum);
 
 		uiHud->SetWave(wave);
 		uiHud->SetZombieCount(zombieNum);

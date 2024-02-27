@@ -6,6 +6,30 @@ Spawner::Spawner(const std::string& name) : GameObject(name)
 {
 }
 
+void Spawner::Spawn()
+{
+	sf::Vector2f pos = position + Utils::RandomInUnitCircle() * radius;
+	if (sceneGame != nullptr)
+	{
+		pos = sceneGame->ClampByTileMap(pos);
+	}
+
+	GameObject* newGo = Create();
+	newGo->Init();
+	newGo->Reset();
+	newGo->SetPosition(pos);
+
+	SCENE_MGR.GetCurrentScene()->AddGo(newGo);
+}
+
+void Spawner::Spawn(int count)
+{
+	for (int i = 0; i < count; ++i)
+	{
+		Spawn();
+	}
+}
+
 void Spawner::Init()
 {
 	GameObject::Init();
@@ -36,21 +60,6 @@ void Spawner::Update(float dt)
 	if (timer > interval)
 	{
 		timer = 0.f;
-
-		for (int i = 0; i < spawnCount; ++i)
-		{
-			sf::Vector2f pos = position + Utils::RandomInUnitCircle() * radius;
-			if (sceneGame != nullptr)
-			{
-				pos = sceneGame->ClampByTileMap(pos);
-			}
-
-			GameObject* newGo = Create();
-			newGo->Init();
-			newGo->Reset();
-			newGo->SetPosition(pos);
-
-			SCENE_MGR.GetCurrentScene()->AddGo(newGo);
-		}
+		Spawn(spawnCount);
 	}
 }

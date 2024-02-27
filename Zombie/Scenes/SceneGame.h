@@ -27,7 +27,9 @@ protected:
 	SpriteGo* crosshair = nullptr;
 
 	std::list<GameObject*> zombieList;
-	std::vector<Spawner*> spawners;
+	std::list<GameObject*> itemList;
+	Spawner* zombieSpawner = nullptr;
+	Spawner* itemSpawner = nullptr;
 
 	int score = 0;
 	int wave = 1;
@@ -64,5 +66,6 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	void SetStatus(Status newStatus);
+	Status GetStatus() { return currStatus; }
 };
 

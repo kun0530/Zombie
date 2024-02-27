@@ -13,12 +13,15 @@ protected:
 	float timer = 0.f;
 
 	SceneGame* sceneGame = nullptr;
+	virtual GameObject* Create() = 0;
 
 public:
 	Spawner(const std::string& name = "");
 	~Spawner() override = default;
 
-	virtual GameObject* Create() = 0;
+	void Spawn();
+	void Spawn(int count);
+	void SetRadius(float r) { radius = r; }
 	
 	virtual void Init();
 	virtual void Release();
