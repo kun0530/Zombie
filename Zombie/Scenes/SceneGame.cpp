@@ -132,7 +132,7 @@ void SceneGame::Update(float dt)
 	crosshair->SetPosition(ScreenToUi((sf::Vector2i)InputMgr::GetMousePos()));
 
 	sf::Vector2f worldViewCenter = worldView.getCenter();
-	worldViewCenter = Utils::Lerp(worldViewCenter, player->GetPosition(), dt * 0.25f);
+	worldViewCenter = Utils::Lerp(worldViewCenter, player->GetPosition(), dt * 1.5f);
 	worldView.setCenter(worldViewCenter);
 
 	switch (currStatus)
