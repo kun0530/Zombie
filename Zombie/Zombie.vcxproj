@@ -137,6 +137,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Framework\DataTableMgr.cpp" />
+    <ClCompile Include="Framework\DataTable.cpp" />
     <ClCompile Include="GameObjects\Bullet.cpp" />
     <ClCompile Include="Framework\Framework.cpp" />
     <ClCompile Include="Framework\InputMgr.cpp">
@@ -169,8 +171,12 @@
     <ClCompile Include="GameObjects\UiHud.cpp" />
     <ClCompile Include="GameObjects\SpriteGoEffect.cpp" />
     <ClCompile Include="Framework\SoundMgr.cpp" />
+    <ClCompile Include="Framework\StringTable.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\DataTableMgr.h" />
+    <ClInclude Include="Framework\DataTable.h" />
+    <ClInclude Include="Framework\rapidcsv.h" />
     <ClInclude Include="GameObjects\Bullet.h" />
     <ClInclude Include="Framework\Framework.h" />
     <ClInclude Include="Framework\Defines.h" />
@@ -197,6 +203,7 @@
     <ClInclude Include="GameObjects\UiHud.h" />
     <ClInclude Include="GameObjects\SpriteGoEffect.h" />
     <ClInclude Include="Framework\SoundMgr.h" />
+    <ClInclude Include="Framework\StringTable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
